@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a survey memo deciding what can be reported about basin snow cover this week.",
+  "source": "The low zone covers 60% of area and has mean snow depth 10 cm from 12 plots. The high zone covers 40% and has mean 40 cm from three accessible plots. Two steep high-zone routes were unavailable. Last year's comparable area-weighted depth was 25 cm. No snow-density measurements were made.",
+  "criteria": [
+    {
+      "id": "estimate",
+      "weight": 30,
+      "full": "Computes the nominal area-weighted estimate of 22 cm and distinguishes it from the unweighted plot average.",
+      "partial": "Computes a mean without accounting for the 60/40 area weights."
+    },
+    {
+      "id": "sampling",
+      "weight": 30,
+      "full": "Explains how missing steep high sites and only three accessible high plots affect the comparison to 25 cm.",
+      "partial": "Claims a confident three-centimeter decline from the nominal estimate."
+    },
+    {
+      "id": "water",
+      "weight": 25,
+      "full": "Distinguishes snow depth from water equivalent and identifies the missing density information.",
+      "partial": "Uses centimeters of depth as water storage."
+    },
+    {
+      "id": "follow-up",
+      "weight": 15,
+      "full": "Proposes safe alternative observation or remote coverage of missed terrain and explicit uncertainty reporting.",
+      "partial": "Suggests adding plots without targeting the missing stratum."
+    }
+  ]
+}

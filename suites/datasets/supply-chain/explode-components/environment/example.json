@@ -1,0 +1,24 @@
+{
+  "input": {
+    "bom": {
+      "kit": [
+        [
+          "nut",
+          2
+        ]
+      ]
+    },
+    "orders": [
+      [
+        "kit",
+        3
+      ]
+    ],
+    "on_hand": {
+      "nut": 1
+    }
+  },
+  "expected": {
+    "nut": 5
+  }
+}

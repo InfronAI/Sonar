@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare a facilities decision on a proposed load shift for a residential building.",
+  "source": "A laundry bank draws 24 kW for two hours. Peak electricity costs $0.30/kWh and off-peak $0.12/kWh. Running after 22:00 conflicts with the quiet-hours policy. A daytime off-peak window exists on Saturday. Daily use varies, and moving demand does not change the energy per load. A peak-demand fee is based on the highest monthly half hour.",
+  "criteria": [
+    {
+      "id": "tariff",
+      "weight": 30,
+      "full": "Calculates 48 kWh and up to $8.64 energy-charge savings per shifted cycle.",
+      "partial": "Estimates savings direction but omits energy or uses the wrong tariff difference."
+    },
+    {
+      "id": "demand",
+      "weight": 30,
+      "full": "Separates time-of-use savings from total energy and conditional monthly maximum-demand savings.",
+      "partial": "Says demand or emissions will fall automatically."
+    },
+    {
+      "id": "constraints",
+      "weight": 25,
+      "full": "Considers the Saturday window and user access or capacity while respecting quiet hours.",
+      "partial": "Suggests a cheap time without checking policy or residents' access."
+    },
+    {
+      "id": "trial",
+      "weight": 15,
+      "full": "Defines meter and usage observations and a review rule for a reversible pilot.",
+      "partial": "Suggests monitoring without comparing shifted cycles or peaks."
+    }
+  ]
+}

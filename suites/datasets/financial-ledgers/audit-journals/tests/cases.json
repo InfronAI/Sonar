@@ -1,0 +1,76 @@
+[
+  {
+    "input": [
+      [
+        "A",
+        "x",
+        10,
+        0
+      ],
+      [
+        "B",
+        "x",
+        0,
+        9
+      ],
+      [
+        "A",
+        "y",
+        0,
+        10
+      ],
+      [
+        "C",
+        "y",
+        10,
+        0
+      ],
+      [
+        "C",
+        "x",
+        0,
+        10
+      ]
+    ],
+    "expected": {
+      "imbalances": {
+        "B": -9
+      },
+      "balances": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  {
+    "input": [
+      [
+        "Z",
+        "unused",
+        0,
+        0
+      ],
+      [
+        "Q",
+        "x",
+        7,
+        1
+      ]
+    ],
+    "expected": {
+      "imbalances": {
+        "Q": 6
+      },
+      "balances": {
+        "unused": 0
+      }
+    }
+  },
+  {
+    "input": [],
+    "expected": {
+      "imbalances": {},
+      "balances": {}
+    }
+  }
+]

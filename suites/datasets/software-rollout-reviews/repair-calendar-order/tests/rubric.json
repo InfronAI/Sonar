@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Advise an engineering lead whether a proposed sorting fix is ready to deploy.",
+  "source": "Events carry UTC timestamps and an event ID. A client sorts localized time strings. On a clock-change day two distinct events both display 01:30. Another pair shares an identical UTC timestamp and arrives in alternating network order. A proposed patch changes only the display format. Product requires deterministic chronological order and localized display.",
+  "criteria": [
+    {
+      "id": "cause",
+      "weight": 30,
+      "full": "Separates ambiguous local labels during the clock change from unstable ordering of equal UTC timestamps.",
+      "partial": "Explains one failure mode only."
+    },
+    {
+      "id": "fix",
+      "weight": 30,
+      "full": "Sorts on the UTC instant and a stable event-ID tie breaker while retaining localized rendering.",
+      "partial": "Uses UTC ordering but leaves ties or presentation unspecified."
+    },
+    {
+      "id": "tests",
+      "weight": 25,
+      "full": "Specifies fixtures for both clock-change instants, a true UTC tie with swapped arrival order, and an ordinary date.",
+      "partial": "Proposes a timezone test without checking equal-instant stability."
+    },
+    {
+      "id": "release",
+      "weight": 15,
+      "full": "Rejects or revises the display-only patch with a low-risk rollout and measurable ordering check.",
+      "partial": "Provides a patch opinion without testing or monitoring release behavior."
+    }
+  ]
+}

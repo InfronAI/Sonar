@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a scheduling handoff for a fictional clinic moving between buildings. Address access and continuity only.",
+  "source": "On move day site A can host 18 visits and site B 16. There are 40 confirmed bookings including eight patients who requested step-free entrance. Only site B has a verified step-free route. Ten patients have consented to a remote appointment, but the clinic can host just six remote visits. Four of the ten also requested step-free access. Staff do not know whether the other six remote volunteers can all connect.",
+  "criteria": [
+    {
+      "id": "feasibility",
+      "weight": 30,
+      "full": "Reconciles 34 physical slots plus six remote to 40 and preserves the eight access requests with a feasible assignment or contingency.",
+      "partial": "Counts nominal capacity but overlooks the overlap or route constraint."
+    },
+    {
+      "id": "consent",
+      "weight": 30,
+      "full": "Uses only consenting remote participants and distinguishes willingness from confirmed connectivity.",
+      "partial": "Assumes remote capacity guarantees successful visits."
+    },
+    {
+      "id": "fallback",
+      "weight": 25,
+      "full": "Specifies timely connectivity checks, callback ownership and what to do if fewer than six remote conversions are confirmed.",
+      "partial": "Notes a remote risk without recovering unmet capacity."
+    },
+    {
+      "id": "communication",
+      "weight": 15,
+      "full": "Provides an accessible confirmation or location notice and tracks failed transfers or unfilled appointments.",
+      "partial": "Suggests reminders without addressing accessibility or transfer outcomes."
+    }
+  ]
+}

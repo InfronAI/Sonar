@@ -1,0 +1,72 @@
+[
+  {
+    "input": {
+      "lines": [
+        "# Hello World",
+        "```py",
+        "# Hidden",
+        "```",
+        "## Hello, World!",
+        "#### No"
+      ]
+    },
+    "expected": [
+      [
+        1,
+        "Hello World",
+        "hello-world"
+      ],
+      [
+        2,
+        "Hello, World!",
+        "hello-world-2"
+      ]
+    ]
+  },
+  {
+    "input": {
+      "lines": [
+        " # Indented",
+        "# !!! ",
+        "### ???",
+        "##   ",
+        "### A  B",
+        "## A--B",
+        "# A/b"
+      ]
+    },
+    "expected": [
+      [
+        1,
+        "!!!",
+        "section"
+      ],
+      [
+        3,
+        "???",
+        "section-2"
+      ],
+      [
+        3,
+        "A  B",
+        "a-b"
+      ],
+      [
+        2,
+        "A--B",
+        "a-b-2"
+      ],
+      [
+        1,
+        "A/b",
+        "a-b-3"
+      ]
+    ]
+  },
+  {
+    "input": {
+      "lines": []
+    },
+    "expected": []
+  }
+]

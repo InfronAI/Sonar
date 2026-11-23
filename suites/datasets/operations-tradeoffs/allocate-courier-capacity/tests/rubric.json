@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a dispatch recommendation for a regional library courier service.",
+  "source": "Two vans each carry 20 crates. North needs 22 crates including six reserved for a Tuesday event. South needs 24 including ten due Tuesday. East offers a paid partner trip for up to eight overflow crates on Monday. Regular vans deliver Monday, and no later movement is guaranteed before Tuesday. Fragile crates, four in South, cannot use the partner.",
+  "criteria": [
+    {
+      "id": "capacity",
+      "weight": 30,
+      "full": "Reconciles 46 requested crates to 40 regular slots and at least six overflow slots.",
+      "partial": "Identifies overload without sizing the capacity gap."
+    },
+    {
+      "id": "feasible",
+      "weight": 30,
+      "full": "Provides an allocation whose totals fit both routes and the partner, including all due and fragile crates on permissible transport.",
+      "partial": "Suggests overflow without checking route totals or fragile restrictions."
+    },
+    {
+      "id": "choice",
+      "weight": 25,
+      "full": "Explains the trade between paid overflow and delaying lower-priority crates and identifies a feasible alternative.",
+      "partial": "Names cost without specifying what delaying would affect."
+    },
+    {
+      "id": "handoff",
+      "weight": 15,
+      "full": "Requests confirmation of partner capacity and a fallback prioritization if the booking fails.",
+      "partial": "Names dispatch as owner without a confirmation or fallback."
+    }
+  ]
+}

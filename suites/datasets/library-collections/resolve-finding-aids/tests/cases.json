@@ -1,0 +1,75 @@
+[
+  {
+    "input": {
+      "entries": {
+        "x": [
+          "Folder",
+          "b"
+        ],
+        "b": [
+          "Box",
+          "a"
+        ],
+        "a": [
+          "Root",
+          null
+        ],
+        "y": [
+          "Folder",
+          "missing"
+        ]
+      },
+      "requests": [
+        "x",
+        "y",
+        "q",
+        "a"
+      ]
+    },
+    "expected": [
+      [
+        "Root",
+        "Box",
+        "Folder"
+      ],
+      null,
+      null,
+      [
+        "Root"
+      ]
+    ]
+  },
+  {
+    "input": {
+      "entries": {
+        "a": [
+          "A",
+          "b"
+        ],
+        "b": [
+          "B",
+          "a"
+        ],
+        "x": [
+          "X",
+          "a"
+        ]
+      },
+      "requests": [
+        "x",
+        "b"
+      ]
+    },
+    "expected": [
+      null,
+      null
+    ]
+  },
+  {
+    "input": {
+      "entries": {},
+      "requests": []
+    },
+    "expected": []
+  }
+]

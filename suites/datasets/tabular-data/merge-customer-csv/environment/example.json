@@ -1,0 +1,17 @@
+{
+  "input": {
+    "csv": "id,revision,name,email\n09,1,\"Ng, Jo\", JO@EXAMPLE.NET \n02,4,Ada,a@b.io\n09,3,June,j@b.io\n"
+  },
+  "expected": [
+    [
+      "02",
+      "Ada",
+      "a@b.io"
+    ],
+    [
+      "09",
+      "June",
+      "j@b.io"
+    ]
+  ]
+}

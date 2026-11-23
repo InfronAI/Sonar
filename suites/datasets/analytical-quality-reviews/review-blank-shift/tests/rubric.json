@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a release recommendation for an analytical data manager using the supplied optical readings.",
+  "source": "A reporting rule subtracts the matching batch blank. Sample A reads 0.52 absorbance units with blank 0.04. Sample B reads 0.54 with blank 0.09. The method flags blanks above 0.06. Duplicate readings differed by 0.01. A draft report says B is higher because 0.54 exceeds 0.52.",
+  "criteria": [
+    {
+      "id": "correction",
+      "weight": 30,
+      "full": "Computes corrected A = 0.48 and B = 0.45 and reverses the draft's raw ordering.",
+      "partial": "Recognizes blank correction but gets a number or the ordering wrong."
+    },
+    {
+      "id": "quality",
+      "weight": 30,
+      "full": "Flags B's 0.09 blank against 0.06 and explains why close duplicates do not correct systematic bias.",
+      "partial": "Flags the threshold or mentions duplicates without interpreting the distinction."
+    },
+    {
+      "id": "release",
+      "weight": 25,
+      "full": "Proposes a qualified hold or governed release for B and a check of the matching blank or batch record.",
+      "partial": "Recommends repeating work without identifying the affected result."
+    },
+    {
+      "id": "language",
+      "weight": 15,
+      "full": "Gives defensible report wording which separates observed differences from conclusions pending quality review.",
+      "partial": "Flags uncertainty but repeats the raw ordering as conclusive."
+    }
+  ]
+}

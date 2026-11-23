@@ -1,0 +1,77 @@
+[
+  {
+    "input": {
+      "windows": [
+        [
+          4,
+          10
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          15,
+          20
+        ]
+      ],
+      "blocked": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "exposure": 2,
+      "readout": 1
+    },
+    "expected": [
+      0,
+      5,
+      8,
+      15,
+      18
+    ]
+  },
+  {
+    "input": {
+      "windows": [
+        [
+          0,
+          5
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "blocked": [
+        [
+          -1,
+          8
+        ],
+        [
+          11,
+          15
+        ]
+      ],
+      "exposure": 1,
+      "readout": 0
+    },
+    "expected": [
+      10
+    ]
+  },
+  {
+    "input": {
+      "windows": [],
+      "blocked": [],
+      "exposure": 5,
+      "readout": 1
+    },
+    "expected": []
+  }
+]

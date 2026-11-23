@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a release plan for an archive under its supplied donor terms.",
+  "source": "Of 30 recordings, 18 have signed open-release forms, seven allow on-site listening only and five have no located release. Three open recordings mention a third party in a sensitive context. A public exhibition opens in two weeks. The repository can gate audio and publish separate descriptive metadata.",
+  "criteria": [
+    {
+      "id": "rights",
+      "weight": 30,
+      "full": "Assigns open, on-site and unresolved materials to appropriate access tiers using all three counts.",
+      "partial": "Recognizes restrictions but conflates the seven and five groups."
+    },
+    {
+      "id": "sensitivity",
+      "weight": 30,
+      "full": "Distinguishes third-party review within the open group from the donor's permission and proposes proportional handling.",
+      "partial": "Treats the open form as resolving every sensitivity issue."
+    },
+    {
+      "id": "launch",
+      "weight": 25,
+      "full": "Proposes a feasible staged exhibit using eligible material and appropriately reviewed metadata.",
+      "partial": "Delays everything or releases everything without considering a staged option."
+    },
+    {
+      "id": "record",
+      "weight": 15,
+      "full": "Assigns consent search, review records and a correction or takedown contact.",
+      "partial": "Mentions recordkeeping without a responsible path to change access."
+    }
+  ]
+}

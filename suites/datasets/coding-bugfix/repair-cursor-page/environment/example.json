@@ -1,0 +1,28 @@
+{
+  "input": {
+    "events": [
+      [
+        1,
+        "x"
+      ],
+      [
+        1,
+        "y"
+      ]
+    ],
+    "cursor": null,
+    "limit": 1
+  },
+  "expected": {
+    "events": [
+      [
+        1,
+        "x"
+      ]
+    ],
+    "next": [
+      1,
+      "x"
+    ]
+  }
+}

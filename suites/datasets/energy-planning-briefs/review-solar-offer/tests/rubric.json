@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Draft a purchasing note assessing a simplified solar supply proposal.",
+  "source": "The offer supplies an estimated 100 MWh yearly at $80/MWh with payment on all production. The site expects to use 65 MWh directly, replacing imports at $130/MWh. Surplus earns $35/MWh. A sensitivity case reduces direct use to 45 MWh. Maintenance is included. Contract data on curtailment and price escalation is missing.",
+  "criteria": [
+    {
+      "id": "base",
+      "weight": 30,
+      "full": "Calculates $8,000 cost, $8,450 avoided imports and $1,225 export credit, for $1,675 net benefit.",
+      "partial": "Calculates avoided imports but treats exports as retail savings or misses costs."
+    },
+    {
+      "id": "sensitivity",
+      "weight": 30,
+      "full": "Shows 45 MWh direct use yields $5,850 plus $1,925 against $8,000, a $225 loss.",
+      "partial": "Recognizes exposure to direct use without calculating the downside."
+    },
+    {
+      "id": "decision",
+      "weight": 25,
+      "full": "Makes a conditional choice tied to load overlap, metering or contract risk allocation.",
+      "partial": "Recommends on base economics alone."
+    },
+    {
+      "id": "questions",
+      "weight": 15,
+      "full": "Requests both curtailment and escalation terms with a way to check the load forecast.",
+      "partial": "Requests generic legal review without specifying missing commercial information."
+    }
+  ]
+}

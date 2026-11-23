@@ -1,0 +1,23 @@
+{
+  "input": [
+    [
+      "p",
+      "cash",
+      40,
+      0
+    ],
+    [
+      "p",
+      "sales",
+      0,
+      40
+    ]
+  ],
+  "expected": {
+    "imbalances": {},
+    "balances": {
+      "cash": 40,
+      "sales": -40
+    }
+  }
+}

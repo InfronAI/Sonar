@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare a pilot decision for a distribution manager balancing damage and packing time.",
+  "source": "A new insert was used on 200 nearby shipments and four were damaged. The old insert served 300 long-distance shipments and 12 were damaged. The new insert adds 20 seconds packing time. The warehouse processes 1,800 shipments daily. Long routes handle more transfers. Each damage claim ties up a support worker.",
+  "criteria": [
+    {
+      "id": "baseline",
+      "weight": 30,
+      "full": "Computes 2% and 4% observed damage and identifies route length or transfers as confounding.",
+      "partial": "Compares percentages but treats the difference as causal."
+    },
+    {
+      "id": "capacity",
+      "weight": 30,
+      "full": "Converts 20 seconds across 1,800 shipments to ten working hours per day before considering staffing.",
+      "partial": "Recognizes added labor without sizing it correctly."
+    },
+    {
+      "id": "design",
+      "weight": 25,
+      "full": "Proposes concurrent randomized or matched insert comparisons within route strata and tracks packing time and claims.",
+      "partial": "Proposes more shipments without controlling route severity."
+    },
+    {
+      "id": "gate",
+      "weight": 15,
+      "full": "Sets a review gate based on damage savings, labor and uncertainty with a responsible decision-maker.",
+      "partial": "Recommends rollout from the raw rates or omits a decision gate."
+    }
+  ]
+}

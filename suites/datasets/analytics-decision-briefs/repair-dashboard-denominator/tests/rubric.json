@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Draft a metric definition and migration note for support leads.",
+  "source": "The dashboard reports resolved tickets divided by all tickets opened in the same calendar week. In week 12, 120 tickets opened and 130 closed, including 45 from earlier weeks. Fifteen week-12 tickets were reopened after closure. Managers want both backlog movement and the fraction of new tickets resolved within seven days.",
+  "criteria": [
+    {
+      "id": "distinction",
+      "weight": 30,
+      "full": "Separates a flow or backlog measure from a cohort-based seven-day resolution rate.",
+      "partial": "Notices the possible rate over 100% without proposing distinct measures."
+    },
+    {
+      "id": "numbers",
+      "weight": 30,
+      "full": "Uses 130 minus 45 to identify 85 same-week closures and flags the missing follow-up/reopen overlap for a seven-day answer.",
+      "partial": "Computes 85 but treats it as a fully observed seven-day numerator."
+    },
+    {
+      "id": "definition",
+      "weight": 25,
+      "full": "Defines the cohort date, seven-day window, unique-ticket denominator and a clear reopened-ticket policy.",
+      "partial": "Defines a time window but leaves reopening or uniqueness ambiguous."
+    },
+    {
+      "id": "handoff",
+      "weight": 15,
+      "full": "Proposes parallel publication, accountable ownership and validation using ticket-level event histories.",
+      "partial": "Suggests renaming the chart without reconciling the underlying events."
+    }
+  ]
+}

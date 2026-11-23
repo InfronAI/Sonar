@@ -1,0 +1,23 @@
+{
+  "input": {
+    "entries": {
+      "r": [
+        "Archive",
+        null
+      ],
+      "b": [
+        "Box",
+        "r"
+      ]
+    },
+    "requests": [
+      "b"
+    ]
+  },
+  "expected": [
+    [
+      "Archive",
+      "Box"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a decision memo to the treasurer. Select a bridge action, justify the six-week cash floor and give a trigger for revisiting the plan.",
+  "source": "The opening balance is $110k. Receipts and outflows through week six are $40k and $105k. Policy requires at least $60k at week six. A $20k supplier deferral costs $1k now. A $30k credit draw costs $2k now and matures in week eight. A $25k expected customer payment arrives in week seven and may slip.",
+  "criteria": [
+    {
+      "id": "floor",
+      "weight": 30,
+      "full": "Computes $45k before action and a $15k shortfall. Keeps the week-seven receipt outside the horizon.",
+      "partial": "Identifies a shortfall but omits its size or timing."
+    },
+    {
+      "id": "alternatives",
+      "weight": 30,
+      "full": "Compares $64k after deferral with $73k after drawing, including fees and later obligations.",
+      "partial": "Names both levers but prices only one or ignores repayment."
+    },
+    {
+      "id": "decision",
+      "weight": 25,
+      "full": "Chooses a feasible bridge and explains the trade between cash headroom and the cost or supplier relationship.",
+      "partial": "Picks a feasible option with only generic justification."
+    },
+    {
+      "id": "trigger",
+      "weight": 15,
+      "full": "Gives an owner, a time and a measurable trigger tied to the uncertain receipt or an earlier cash floor.",
+      "partial": "Identifies the receipt risk without a concrete review trigger."
+    }
+  ]
+}

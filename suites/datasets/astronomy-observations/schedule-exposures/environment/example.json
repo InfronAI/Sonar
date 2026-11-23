@@ -1,0 +1,17 @@
+{
+  "input": {
+    "windows": [
+      [
+        0,
+        12
+      ]
+    ],
+    "blocked": [],
+    "exposure": 4,
+    "readout": 2
+  },
+  "expected": [
+    0,
+    6
+  ]
+}

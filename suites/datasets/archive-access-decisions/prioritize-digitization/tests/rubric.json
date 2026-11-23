@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Recommend a first digitization batch and document how it reflects the archive's priorities.",
+  "source": "There are 12 staff-days. Group A contains six fragile maps needing two days each, with one request per year. Group B contains eight frequently requested ledgers needing one day each, with 40 requests yearly. Group C contains four community-language pamphlets needing one day each. C has low recorded use but no searchable catalog entry. Only two map supports are available this month.",
+  "criteria": [
+    {
+      "id": "feasibility",
+      "weight": 30,
+      "full": "Provides a batch within 12 staff-days and at most two maps, showing the arithmetic.",
+      "partial": "Gives priorities without checking days and map supports."
+    },
+    {
+      "id": "tradeoff",
+      "weight": 30,
+      "full": "Weighs preservation, access demand and discovery bias for the uncataloged pamphlets.",
+      "partial": "Uses historical request volume as the sole proxy for value."
+    },
+    {
+      "id": "alternative",
+      "weight": 25,
+      "full": "Explains a credible alternative batch and what it would displace.",
+      "partial": "Lists alternatives without articulating opportunity cost."
+    },
+    {
+      "id": "review",
+      "weight": 15,
+      "full": "Specifies logging condition and usage after description, plus a decision point for the next batch.",
+      "partial": "Asks for future feedback without linking it to reprioritization."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Advise a school committee how to decide the next phase of two reading pilots.",
+  "source": "School A gave tutoring to 20 volunteers and its mean reading score increased by 8 points. School B used classroom practice with 80 students and gained 5 points. A began 9 points lower. Different teachers marked the two follow-up tests. The district can fund a next-term pilot at four schools.",
+  "criteria": [
+    {
+      "id": "contrast",
+      "weight": 30,
+      "full": "Reports the observed three-point gain difference and identifies baseline imbalance and volunteer selection.",
+      "partial": "Compares gains but treats differently selected groups as equivalent."
+    },
+    {
+      "id": "measurement",
+      "weight": 30,
+      "full": "Explains the marker difference and proposes common or blinded scoring with comparable assessments.",
+      "partial": "Requests common tests without addressing marking."
+    },
+    {
+      "id": "design",
+      "weight": 25,
+      "full": "Proposes a feasible balanced four-school comparison, including baseline measurement and implementation tracking.",
+      "partial": "Expands to four schools without improving assignment or measurement."
+    },
+    {
+      "id": "decision",
+      "weight": 15,
+      "full": "Identifies a learning plus access or cost criterion and a review point before wider adoption.",
+      "partial": "Recommends a winner solely from raw gains."
+    }
+  ]
+}

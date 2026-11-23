@@ -1,0 +1,84 @@
+[
+  {
+    "input": {
+      "cutoff": 8,
+      "events": [
+        [
+          "B",
+          1,
+          1,
+          "stay"
+        ],
+        [
+          "A",
+          3,
+          8,
+          "reopen"
+        ],
+        [
+          "A",
+          3,
+          3,
+          "close"
+        ],
+        [
+          "A",
+          1,
+          1,
+          "file"
+        ],
+        [
+          "B",
+          9,
+          1,
+          "file"
+        ]
+      ]
+    },
+    "expected": {
+      "A": "open"
+    }
+  },
+  {
+    "input": {
+      "cutoff": 2,
+      "events": [
+        [
+          "A",
+          2,
+          1,
+          "file"
+        ],
+        [
+          "A",
+          2,
+          2,
+          "close"
+        ],
+        [
+          "A",
+          2,
+          3,
+          "file"
+        ],
+        [
+          "B",
+          0,
+          0,
+          "file"
+        ]
+      ]
+    },
+    "expected": {
+      "A": "closed",
+      "B": "open"
+    }
+  },
+  {
+    "input": {
+      "cutoff": 0,
+      "events": []
+    },
+    "expected": {}
+  }
+]

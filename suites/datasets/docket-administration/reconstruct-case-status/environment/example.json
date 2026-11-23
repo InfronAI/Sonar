@@ -1,0 +1,22 @@
+{
+  "input": {
+    "cutoff": 4,
+    "events": [
+      [
+        "A",
+        1,
+        1,
+        "file"
+      ],
+      [
+        "A",
+        2,
+        1,
+        "stay"
+      ]
+    ]
+  },
+  "expected": {
+    "A": "stayed"
+  }
+}

@@ -1,0 +1,28 @@
+schema_version = "1.4"
+artifacts = [{ source = "/app/submission.md", destination = "submission.md" }]
+
+[task]
+name = "sonar-eval/triage-duplicate-receipts"
+authors = [{ name = "Sonar" }]
+
+[agent]
+timeout_sec = 600.0
+
+[environment]
+docker_image = "sonar-eval/rubric-workspace:1"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+
+[verifier]
+environment_mode = "separate"
+timeout_sec = 240.0
+
+[verifier.env]
+SONAR_JUDGE_KEY = "${SONAR_JUDGE_KEY}"
+
+[verifier.environment]
+docker_image = "sonar-eval/rubric-verifier-triage-duplicate-receipts:1"
+cpus = 1
+memory_mb = 512
+storage_mb = 2048

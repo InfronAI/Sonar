@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a release-owner memo on an application bug and the smallest credible repair validation.",
+  "source": "A receipt service writes a receipt and then acknowledges a job. A retry patch went live at 09:00. Of 1,000 jobs, 18 timed out after a successful write. Logs show 17 duplicate receipts share a job ID and one has no matching trace. The worker fleet can roll back in ten minutes. Existing tests cover first-time delivery only.",
+  "criteria": [
+    {
+      "id": "mechanism",
+      "weight": 30,
+      "full": "Explains the write-before-ack retry window and uses the 17 matching IDs as evidence with one unresolved case.",
+      "partial": "Names retries but doesn't connect write, acknowledgment and duplicate creation."
+    },
+    {
+      "id": "repair",
+      "weight": 30,
+      "full": "Proposes idempotency keyed by stable job ID with an atomic persistent decision that survives parallel retries.",
+      "partial": "Suggests an in-memory flag or a duplicate check with a race window."
+    },
+    {
+      "id": "validation",
+      "weight": 25,
+      "full": "Tests the specific crash window, concurrent redelivery and normal delivery with one logical receipt per job.",
+      "partial": "Adds a generic retry test without a crash or concurrency assertion."
+    },
+    {
+      "id": "rollout",
+      "weight": 15,
+      "full": "Sets a rollback or containment action, monitors duplicates per job, and assigns follow-up for the unmatched receipt.",
+      "partial": "Lists monitoring without a concrete action or follow-up."
+    }
+  ]
+}

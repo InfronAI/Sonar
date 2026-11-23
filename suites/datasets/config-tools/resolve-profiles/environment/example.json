@@ -1,0 +1,31 @@
+{
+  "input": {
+    "target": "prod",
+    "profiles": {
+      "base": {
+        "values": {
+          "n": 2,
+          "flags": {
+            "a": 1
+          }
+        }
+      },
+      "prod": {
+        "parent": "base",
+        "values": {
+          "flags": {
+            "b": 2
+          }
+        }
+      }
+    }
+  },
+  "expected": {
+    "values": {
+      "n": 2,
+      "flags": {
+        "b": 2
+      }
+    }
+  }
+}

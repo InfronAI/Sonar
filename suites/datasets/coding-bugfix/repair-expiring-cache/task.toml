@@ -1,0 +1,18 @@
+schema_version = "1.4"
+
+[task]
+name = "sonar-eval/repair-expiring-cache"
+authors = [{ name = "Sonar" }]
+
+[agent]
+timeout_sec = 240.0
+
+[verifier]
+timeout_sec = 30.0
+environment_mode = "shared"
+
+[environment]
+docker_image = "sonar-eval/repair-expiring-cache:1"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240

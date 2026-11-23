@@ -1,0 +1,16 @@
+{
+  "Finance and accounting": ["decimal-finance", "financial-ledgers", "treasury-operations", "liquidity-reviews", "budget-governance"],
+  "Law and legal operations": ["contract-review", "docket-administration", "agreement-operations", "fictional-rule-reviews"],
+  "Biology and ecology": ["field-biodiversity", "habitat-monitoring", "conservation-decisions"],
+  "Healthcare": ["hospital-operations", "health-records", "health-access-planning", "service-continuity-reviews"],
+  "Physics": ["motion-analysis", "circuit-analysis", "measurement-design-reviews"],
+  "Chemistry": ["chemical-measurements", "analytical-chemistry", "analytical-quality-reviews"],
+  "Software engineering": ["coding-bugfix", "config-tools", "file-inventory", "text-processing", "software-rollout-reviews", "engineering-handoffs"],
+  "Data and analytics": ["sql-analytics", "tabular-data", "time-series", "analytics-decision-briefs", "research-design-reviews"],
+  "Operations and logistics": ["scheduling", "supply-chain", "manufacturing-quality", "operations-tradeoffs"],
+  "Earth and space science": ["geospatial-analysis", "climate-records", "astronomy-observations", "earth-observation-briefs", "field-program-reviews"],
+  "Energy": ["energy-metering", "energy-planning-briefs"],
+  "Education": ["education-assessment", "education-policy-memos"],
+  "Libraries and archives": ["library-collections", "archive-access-decisions"],
+  "Mathematics": ["numerical-analysis", "model-assumption-critiques"]
+}

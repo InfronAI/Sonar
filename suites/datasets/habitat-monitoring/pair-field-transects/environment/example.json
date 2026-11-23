@@ -1,0 +1,22 @@
+{
+  "input": [
+    [
+      "oak",
+      "before",
+      "a",
+      false
+    ],
+    [
+      "oak",
+      "after",
+      "a",
+      true
+    ]
+  ],
+  "expected": {
+    "oak": [
+      1,
+      1
+    ]
+  }
+}

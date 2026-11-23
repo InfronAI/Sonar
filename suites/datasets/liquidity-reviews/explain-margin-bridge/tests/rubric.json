@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Draft a board note reconciling the margin change and proposing the next piece of analysis.",
+  "source": "Prior-quarter sales were $1.00m and gross profit $300k. Current sales are $1.10m and gross profit $297k. Finance attributes $30k additional profit to sales at the previous margin, a $22k mix loss and an $11k freight loss. Freight includes a $6k one-off disruption. Product-level volumes and supplier invoices have not yet been reconciled.",
+  "criteria": [
+    {
+      "id": "bridge",
+      "weight": 30,
+      "full": "Reconciles $300k + $30k − $22k − $11k to $297k.",
+      "partial": "Mentions the drivers but fails to reconcile to both endpoints."
+    },
+    {
+      "id": "rate",
+      "weight": 30,
+      "full": "Distinguishes the $3k profit decline from the 30% to 27% margin change and growing sales.",
+      "partial": "Gets direction or a single rate right."
+    },
+    {
+      "id": "recurrence",
+      "weight": 25,
+      "full": "Separates the $6k disruption from the other $5k freight loss and treats recurrence as uncertain.",
+      "partial": "Calls freight temporary without separating its components."
+    },
+    {
+      "id": "follow-up",
+      "weight": 15,
+      "full": "Assigns checks of product-level mix and freight invoices before committing to a recurring forecast.",
+      "partial": "Asks for more analysis without naming an evidence source."
+    }
+  ]
+}

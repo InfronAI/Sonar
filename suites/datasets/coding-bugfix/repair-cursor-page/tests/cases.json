@@ -1,0 +1,92 @@
+[
+  {
+    "input": {
+      "events": [
+        [
+          2,
+          "c"
+        ],
+        [
+          1,
+          "b"
+        ],
+        [
+          1,
+          "a"
+        ]
+      ],
+      "cursor": [
+        1,
+        "a"
+      ],
+      "limit": 2
+    },
+    "expected": {
+      "events": [
+        [
+          1,
+          "b"
+        ],
+        [
+          2,
+          "c"
+        ]
+      ],
+      "next": null
+    }
+  },
+  {
+    "input": {
+      "events": [
+        [
+          4,
+          "c"
+        ],
+        [
+          4,
+          "a"
+        ],
+        [
+          6,
+          "d"
+        ]
+      ],
+      "cursor": [
+        4,
+        "b"
+      ],
+      "limit": 1
+    },
+    "expected": {
+      "events": [
+        [
+          4,
+          "c"
+        ]
+      ],
+      "next": [
+        4,
+        "c"
+      ]
+    }
+  },
+  {
+    "input": {
+      "events": [
+        [
+          2,
+          "a"
+        ]
+      ],
+      "cursor": [
+        3,
+        "x"
+      ],
+      "limit": 3
+    },
+    "expected": {
+      "events": [],
+      "next": null
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "input": {
+    "lines": [
+      {
+        "quantity": 1,
+        "unit_price": "1.005"
+      },
+      {
+        "quantity": 2,
+        "unit_price": "0.335"
+      }
+    ],
+    "tax_bps": 750
+  },
+  "expected": {
+    "net_cents": 168,
+    "tax_cents": 13,
+    "total_cents": 181
+  }
+}

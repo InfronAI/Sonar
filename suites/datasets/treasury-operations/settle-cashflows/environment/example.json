@@ -1,0 +1,21 @@
+{
+  "input": {
+    "opening": {
+      "USD": 10
+    },
+    "cutoff": "2025-02-01",
+    "entries": [
+      [
+        "a",
+        1,
+        "2025-02-01",
+        "USD",
+        -2,
+        "posted"
+      ]
+    ]
+  },
+  "expected": {
+    "USD": 8
+  }
+}

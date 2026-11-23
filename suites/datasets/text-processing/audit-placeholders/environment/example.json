@@ -1,0 +1,25 @@
+{
+  "input": {
+    "source": {
+      "hi": "Hello {user}",
+      "qty": "{n:d} of {total}",
+      "literal": "{{none}}"
+    },
+    "translated": {
+      "hi": "Hallo {user}",
+      "qty": "{n} von {max}",
+      "literal": "none"
+    }
+  },
+  "expected": [
+    [
+      "qty",
+      [
+        "total"
+      ],
+      [
+        "max"
+      ]
+    ]
+  ]
+}

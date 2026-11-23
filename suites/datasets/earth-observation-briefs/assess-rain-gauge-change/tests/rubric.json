@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a methods note for a regional rainfall series after an instrument relocation.",
+  "source": "A gauge moved from a sheltered site to an exposed site on 1 July. Its mean daily reading fell from 5.0 to 4.0 mm across the move. A nearby unchanged gauge fell from 5.5 to 5.0 mm. The comparison spans different parts of the rainy season. There were only three days with both old and new gauges running.",
+  "criteria": [
+    {
+      "id": "contrast",
+      "weight": 30,
+      "full": "Quantifies the local drop of 1.0 mm against the comparison drop of 0.5 mm and interprets the residual cautiously.",
+      "partial": "Notes both declines but fails to estimate the differential."
+    },
+    {
+      "id": "limits",
+      "weight": 30,
+      "full": "Explains seasonal/weather differences, exposure and the small overlap as constraints on attribution.",
+      "partial": "Names uncertainty without identifying a specific constraint."
+    },
+    {
+      "id": "bridge",
+      "weight": 25,
+      "full": "Proposes overlapping measurements or multiple reference gauges and weather-stratified diagnostics.",
+      "partial": "Proposes applying a universal correction from three days alone."
+    },
+    {
+      "id": "publication",
+      "weight": 15,
+      "full": "Retains original readings, marks the break and defines separate publication of any adjusted series with uncertainty.",
+      "partial": "Suggests correcting historical data without preserving its provenance."
+    }
+  ]
+}

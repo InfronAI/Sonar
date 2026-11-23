@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "track": "sql-agent-comparison",
+  "suite": "../suites/datasets/sql-analytics",
+  "agents": ["pi", "claude-code"],
+  "models": [
+    {"id": "glm", "family": "GLM", "name": "z-ai/glm-5.2", "version": "5.2", "provider": "infron"}
+  ],
+  "repetitions": 2,
+  "agent_timeout_seconds": 600,
+  "timeout_seconds": 1200,
+  "inference": {"max_tokens": 4096}
+}

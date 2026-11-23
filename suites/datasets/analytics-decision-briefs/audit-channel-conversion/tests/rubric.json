@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write an analyst note on whether to shift traffic to channel B.",
+  "source": "For returning users A converted 90/100 and B 19/20. For new users A converted 2/20 and B 15/100. The proposed dashboard uses only overall conversions. Allocation was decided by a campaign system. Next month is expected to have equal numbers of new and returning users.",
+  "criteria": [
+    {
+      "id": "strata",
+      "weight": 30,
+      "full": "Computes 90% versus 95% for returning and 10% versus 15% for new users.",
+      "partial": "Calculates at least one valid stratum comparison."
+    },
+    {
+      "id": "aggregation",
+      "weight": 30,
+      "full": "Shows the overall reversal, 92/120 versus 34/120, and explains the unequal audience mix.",
+      "partial": "Notes different mixes without reconciling aggregate direction."
+    },
+    {
+      "id": "standardize",
+      "weight": 25,
+      "full": "For equal mix estimates 50% for A and 55% for B and labels this a standardized descriptive scenario.",
+      "partial": "Proposes weighting but gives no equal-mix comparison."
+    },
+    {
+      "id": "decision",
+      "weight": 15,
+      "full": "Recommends a stratified prospective comparison or guarded allocation using uncertainty and campaign selection.",
+      "partial": "Declares a causal winner from the observed comparison."
+    }
+  ]
+}

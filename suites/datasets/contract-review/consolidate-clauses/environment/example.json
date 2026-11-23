@@ -1,0 +1,19 @@
+{
+  "input": {
+    "as_of": "2025-01-02",
+    "original": {
+      "A": "old"
+    },
+    "amendments": [
+      [
+        "2025-01-02",
+        1,
+        "A",
+        "new"
+      ]
+    ]
+  },
+  "expected": {
+    "A": "new"
+  }
+}

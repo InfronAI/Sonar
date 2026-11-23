@@ -1,0 +1,102 @@
+[
+  {
+    "input": {
+      "capacities": {
+        "A": 2,
+        "B": 0
+      },
+      "requests": [
+        [
+          "z",
+          "A",
+          1,
+          3
+        ],
+        [
+          "a",
+          "A",
+          2,
+          0
+        ],
+        [
+          "a",
+          "A",
+          1,
+          3
+        ],
+        [
+          "c",
+          "A",
+          1,
+          2
+        ],
+        [
+          "c",
+          "B",
+          1,
+          1
+        ]
+      ]
+    },
+    "expected": {
+      "A": {
+        "admitted": [
+          "c",
+          "a"
+        ],
+        "waitlist": [
+          "z"
+        ]
+      },
+      "B": {
+        "admitted": [],
+        "waitlist": [
+          "c"
+        ]
+      }
+    }
+  },
+  {
+    "input": {
+      "capacities": {
+        "Q": 3
+      },
+      "requests": [
+        [
+          "u",
+          "Q",
+          1,
+          8
+        ],
+        [
+          "u",
+          "Q",
+          1,
+          2
+        ]
+      ]
+    },
+    "expected": {
+      "Q": {
+        "admitted": [
+          "u"
+        ],
+        "waitlist": []
+      }
+    }
+  },
+  {
+    "input": {
+      "capacities": {
+        "X": 0
+      },
+      "requests": []
+    },
+    "expected": {
+      "X": {
+        "admitted": [],
+        "waitlist": []
+      }
+    }
+  }
+]

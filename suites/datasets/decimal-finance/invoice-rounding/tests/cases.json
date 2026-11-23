@@ -1,0 +1,53 @@
+[
+  {
+    "input": {
+      "lines": [
+        {
+          "quantity": 1,
+          "unit_price": "1.005"
+        },
+        {
+          "quantity": 2,
+          "unit_price": "0.335"
+        }
+      ],
+      "tax_bps": 750
+    },
+    "expected": {
+      "net_cents": 168,
+      "tax_cents": 13,
+      "total_cents": 181
+    }
+  },
+  {
+    "input": {
+      "lines": [
+        {
+          "quantity": 1,
+          "unit_price": "-0.045"
+        },
+        {
+          "quantity": 1,
+          "unit_price": "-0.005"
+        }
+      ],
+      "tax_bps": 2500
+    },
+    "expected": {
+      "net_cents": -6,
+      "tax_cents": -2,
+      "total_cents": -8
+    }
+  },
+  {
+    "input": {
+      "lines": [],
+      "tax_bps": 900
+    },
+    "expected": {
+      "net_cents": 0,
+      "tax_cents": 0,
+      "total_cents": 0
+    }
+  }
+]

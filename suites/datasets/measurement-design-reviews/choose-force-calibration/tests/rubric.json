@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Give a laboratory coordinator a calibration decision before comparing two load sensors.",
+  "source": "At reference loads 0, 5 and 10 N, sensor A reads 0.2, 5.2 and 10.2 N. Sensor B reads 0, 5.3 and 10.6 N. Repeatability was not measured. The next experiment compares forces near 8 N and needs agreement within 0.15 N.",
+  "criteria": [
+    {
+      "id": "patterns",
+      "weight": 30,
+      "full": "Identifies A's approximately +0.2 N offset and B's roughly +6% gain error using the reference readings.",
+      "partial": "Identifies offset or gain correctly for just one sensor."
+    },
+    {
+      "id": "target",
+      "weight": 30,
+      "full": "Estimates uncorrected readings near 8.2 and 8.48 N or the equivalent 0.28 N disagreement, above tolerance.",
+      "partial": "Relates the readings to tolerance without quantifying the 8 N comparison."
+    },
+    {
+      "id": "check",
+      "weight": 25,
+      "full": "Proposes independent repeated reference loads near 8 N after correction and estimates residual uncertainty.",
+      "partial": "Proposes recalibration without independent validation."
+    },
+    {
+      "id": "decision",
+      "weight": 15,
+      "full": "Sets a criterion tied to 0.15 N including repeatability and a clear hold or release decision.",
+      "partial": "Offers a general pass rule without uncertainty or a hold action."
+    }
+  ]
+}

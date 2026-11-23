@@ -1,0 +1,67 @@
+[
+  {
+    "input": {
+      "source": {
+        "hi": "Hello {user}",
+        "qty": "{n:d} of {total}",
+        "literal": "{{none}}"
+      },
+      "translated": {
+        "hi": "Hallo {user}",
+        "qty": "{n} von {max}",
+        "literal": "none"
+      }
+    },
+    "expected": [
+      [
+        "qty",
+        [
+          "total"
+        ],
+        [
+          "max"
+        ]
+      ]
+    ]
+  },
+  {
+    "input": {
+      "source": {
+        "lost": "{z} {a} {z}",
+        "extra": "Hello",
+        "ok": "{{k}} {v:.2f}"
+      },
+      "translated": {
+        "extra": "Hi {who}",
+        "ok": "{v}",
+        "other": "{x}"
+      }
+    },
+    "expected": [
+      [
+        "extra",
+        [],
+        [
+          "who"
+        ]
+      ],
+      [
+        "lost",
+        [
+          "a",
+          "z"
+        ],
+        []
+      ]
+    ]
+  },
+  {
+    "input": {
+      "source": {
+        "x": "{{literal}}"
+      },
+      "translated": {}
+    },
+    "expected": []
+  }
+]

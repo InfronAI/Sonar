@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write an access plan for a fictional outpatient scheduling team. Use operational data only.",
+  "source": "Monday morning has 12 interpreter requests and six on-site slots. Tuesday has four requests and six slots. Four Monday patients have agreed to a Tuesday appointment and two require Monday because of transport. A remote interpreter can cover two Monday slots. The team must preserve patient choice and track delays by language.",
+  "criteria": [
+    {
+      "id": "capacity",
+      "weight": 30,
+      "full": "Shows that moving at most two patients into Tuesday's spare slots leaves ten on Monday before remote coverage, with only eight total Monday slots.",
+      "partial": "Recognizes the bottleneck but overuses Tuesday or remote capacity."
+    },
+    {
+      "id": "choice",
+      "weight": 30,
+      "full": "Uses consent and transport constraints explicitly and avoids assuming all four volunteers can be moved.",
+      "partial": "Mentions consent or transport but not both."
+    },
+    {
+      "id": "recovery",
+      "weight": 25,
+      "full": "Proposes a concrete route for the remaining two requests, with ownership and a confirmation deadline.",
+      "partial": "Identifies a residual gap without arranging additional coverage or a callback."
+    },
+    {
+      "id": "monitor",
+      "weight": 15,
+      "full": "Defines a language-stratified wait or cancellation measure and a time to review it.",
+      "partial": "Proposes a general satisfaction metric without a denominator or review."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "input": {
+      "target": "prod",
+      "profiles": {
+        "base": {
+          "values": {
+            "n": 2,
+            "flags": {
+              "a": 1
+            }
+          }
+        },
+        "prod": {
+          "parent": "base",
+          "values": {
+            "flags": {
+              "b": 2
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "values": {
+        "n": 2,
+        "flags": {
+          "b": 2
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "target": "a",
+      "profiles": {
+        "a": {
+          "parent": "b",
+          "values": {}
+        },
+        "b": {
+          "parent": "a",
+          "values": {}
+        }
+      }
+    },
+    "expected": {
+      "error": "cycle"
+    }
+  },
+  {
+    "input": {
+      "target": "x",
+      "profiles": {
+        "x": {
+          "parent": "absent",
+          "values": {}
+        }
+      }
+    },
+    "expected": {
+      "error": "missing"
+    }
+  },
+  {
+    "input": {
+      "target": "ok",
+      "profiles": {
+        "ok": {
+          "values": {}
+        },
+        "bad": {
+          "parent": "bad",
+          "values": {}
+        }
+      }
+    },
+    "expected": {
+      "values": {}
+    }
+  }
+]

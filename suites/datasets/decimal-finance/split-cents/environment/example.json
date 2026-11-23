@@ -1,0 +1,15 @@
+{
+  "input": {
+    "total_cents": 10,
+    "weights": {
+      "c": 1,
+      "b": 1,
+      "a": 1
+    }
+  },
+  "expected": {
+    "a": 4,
+    "b": 3,
+    "c": 3
+  }
+}

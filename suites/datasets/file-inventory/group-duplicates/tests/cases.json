@@ -1,0 +1,43 @@
+[
+  {
+    "input": {
+      "a/x": "red",
+      "b": "red",
+      ".c": "",
+      "d/empty": "",
+      "other": "abc"
+    },
+    "expected": [
+      [
+        ".c",
+        "d/empty"
+      ],
+      [
+        "a/x",
+        "b"
+      ]
+    ]
+  },
+  {
+    "input": {
+      "b/b": "x",
+      "A": "x",
+      "z": "x",
+      "same-size": "y",
+      "line": "x\n"
+    },
+    "expected": [
+      [
+        "A",
+        "b/b",
+        "z"
+      ]
+    ]
+  },
+  {
+    "input": {
+      "solo": "only"
+    },
+    "expected": []
+  }
+]

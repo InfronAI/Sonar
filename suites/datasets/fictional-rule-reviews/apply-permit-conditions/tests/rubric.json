@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a permit-desk decision note on a proposed venue change.",
+  "source": "The permit covers Hall A until 20:00 for up to 100 attendees. Policy P allows a desk amendment only when venue, hours and capacity all stay within the existing approval. A new review is required for any outdoor venue. Organizers request the courtyard until 19:00 with 80 attendees. An indoor fallback would use Hall A until 19:30 for 90.",
+  "criteria": [
+    {
+      "id": "interpretation",
+      "weight": 30,
+      "full": "Applies the outdoor-venue review trigger despite the earlier finish and lower capacity.",
+      "partial": "Focuses on headcount and hours but overlooks the separate outdoor rule."
+    },
+    {
+      "id": "fallback",
+      "weight": 30,
+      "full": "Checks Hall A, 19:30 and 90 against all three conditions and identifies the desk path.",
+      "partial": "Suggests the fallback without checking every condition."
+    },
+    {
+      "id": "process",
+      "weight": 25,
+      "full": "Offers distinct decision paths with review ownership and scheduling implications.",
+      "partial": "Issues a blanket decision without a practical next step."
+    },
+    {
+      "id": "communication",
+      "weight": 15,
+      "full": "Drafts precise organizer-facing language recording approved conditions and pending courtyard status.",
+      "partial": "Promises outdoor approval or leaves the authorized scope ambiguous."
+    }
+  ]
+}

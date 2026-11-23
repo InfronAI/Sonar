@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare a reserve policy note for a small nonprofit board.",
+  "source": "Unrestricted cash is $180k and monthly unavoidable spending is $50k. Board policy targets three months of unrestricted cash. A grant payment of $80k is restricted to a future program. A one-off repair of $45k is due this month, with an optional two-month payment plan costing $3k extra. No income is committed next month.",
+  "criteria": [
+    {
+      "id": "floor",
+      "weight": 30,
+      "full": "Computes the $150k reserve target, $30k current headroom and $135k cash after immediate repair before other spending.",
+      "partial": "Calculates the target but includes restricted funds or misses the repair effect."
+    },
+    {
+      "id": "restriction",
+      "weight": 30,
+      "full": "Excludes the $80k grant from general reserves and distinguishes immediate arithmetic from future cash flow.",
+      "partial": "Mentions restrictions but uses the grant as general liquidity."
+    },
+    {
+      "id": "alternatives",
+      "weight": 25,
+      "full": "Compares the immediate $15k target breach with the cost and timing implications of installments, explicitly noting missing installment details.",
+      "partial": "Declares installments solve the problem without a schedule or cost."
+    },
+    {
+      "id": "control",
+      "weight": 15,
+      "full": "Sets board approval and a rolling cash trigger with a replenishment owner or timeline.",
+      "partial": "Calls for saving money without an actionable reserve rule."
+    }
+  ]
+}

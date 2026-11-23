@@ -1,0 +1,19 @@
+{
+  "input": {
+    "a/x": "red",
+    "b": "red",
+    ".c": "",
+    "d/empty": "",
+    "other": "abc"
+  },
+  "expected": [
+    [
+      ".c",
+      "d/empty"
+    ],
+    [
+      "a/x",
+      "b"
+    ]
+  ]
+}

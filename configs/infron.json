@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "track": "agent-cli",
+  "suite": "../suites/all-tasks.json",
+  "timeout_seconds": 1200,
+  "agent_timeout_seconds": 600,
+  "models": [
+    {"id": "glm", "family": "GLM", "version": "5.2", "name": "z-ai/glm-5.2", "provider": "infron"}
+  ],
+  "agents": ["codex", "claude-code", "pi", "opencode", "copilot-cli"]
+}

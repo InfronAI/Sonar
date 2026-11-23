@@ -1,0 +1,60 @@
+[
+  {
+    "input": {
+      "total_cents": 10,
+      "weights": {
+        "c": 1,
+        "b": 1,
+        "a": 1
+      }
+    },
+    "expected": {
+      "a": 4,
+      "b": 3,
+      "c": 3
+    }
+  },
+  {
+    "input": {
+      "total_cents": 7,
+      "weights": {
+        "a": 0,
+        "b": 5,
+        "c": 3,
+        "d": 2
+      }
+    },
+    "expected": {
+      "a": 0,
+      "b": 4,
+      "c": 2,
+      "d": 1
+    }
+  },
+  {
+    "input": {
+      "total_cents": 0,
+      "weights": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    "expected": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  {
+    "input": {
+      "total_cents": 9007199254740993,
+      "weights": {
+        "a": 1,
+        "b": 1
+      }
+    },
+    "expected": {
+      "a": 4503599627370497,
+      "b": 4503599627370496
+    }
+  }
+]

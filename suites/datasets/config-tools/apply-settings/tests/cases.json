@@ -1,0 +1,77 @@
+[
+  {
+    "input": {
+      "base": {
+        "db": {
+          "host": "a",
+          "ports": [
+            1
+          ],
+          "old": true
+        },
+        "keep": 1
+      },
+      "patch": {
+        "db": {
+          "ports": [
+            2
+          ],
+          "old": null
+        },
+        "new": false
+      }
+    },
+    "expected": {
+      "db": {
+        "host": "a",
+        "ports": [
+          2
+        ]
+      },
+      "keep": 1,
+      "new": false
+    }
+  },
+  {
+    "input": {
+      "base": [
+        1
+      ],
+      "patch": {
+        "x": {
+          "lost": null,
+          "y": 2
+        }
+      }
+    },
+    "expected": {
+      "x": {
+        "y": 2
+      }
+    }
+  },
+  {
+    "input": {
+      "base": {
+        "x": 2
+      },
+      "patch": null
+    },
+    "expected": null
+  },
+  {
+    "input": {
+      "base": {
+        "x": [
+          1
+        ]
+      },
+      "patch": [
+        0
+      ]
+    },
+    "expected": [
+      0
+    ]
+  }
+]

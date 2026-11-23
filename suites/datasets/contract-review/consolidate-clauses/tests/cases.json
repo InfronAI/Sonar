@@ -1,0 +1,74 @@
+[
+  {
+    "input": {
+      "as_of": "2026-05-01",
+      "original": {
+        "B": "keep",
+        "C": "old"
+      },
+      "amendments": [
+        [
+          "2026-05-02",
+          1,
+          "B",
+          null
+        ],
+        [
+          "2026-05-01",
+          4,
+          "C",
+          "restored"
+        ],
+        [
+          "2026-05-01",
+          2,
+          "C",
+          null
+        ],
+        [
+          "2026-04-01",
+          1,
+          "A",
+          "draft"
+        ]
+      ]
+    },
+    "expected": {
+      "A": "draft",
+      "B": "keep",
+      "C": "restored"
+    }
+  },
+  {
+    "input": {
+      "as_of": "2023-01-01",
+      "original": {},
+      "amendments": [
+        [
+          "2023-01-01",
+          1,
+          "X",
+          null
+        ]
+      ]
+    },
+    "expected": {}
+  },
+  {
+    "input": {
+      "as_of": "2024-02-01",
+      "original": {
+        "A": "old"
+      },
+      "amendments": [
+        [
+          "2024-01-01",
+          2,
+          "A",
+          null
+        ]
+      ]
+    },
+    "expected": {}
+  }
+]

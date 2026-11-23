@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a field allocation memo under the stated access and sampling constraints.",
+  "source": "A team can visit six plots once this month. Four river plots have complete three-year histories, two upland plots had unusually low cover last year, and four accessible roadside plots are new. At least two river revisits are required for a funding agreement. Roadsides are convenient but unrepresentative. A second visit is possible next quarter.",
+  "criteria": [
+    {
+      "id": "allocation",
+      "weight": 30,
+      "full": "Allocates exactly six visits with at least two river revisits, stating the treatment of all three plot types.",
+      "partial": "Suggests a plausible mix without a complete count or funding check."
+    },
+    {
+      "id": "inference",
+      "weight": 30,
+      "full": "Explains how repeat sites, low-cover selection and convenient roadsides support different inferences.",
+      "partial": "Notes that selection matters without identifying a specific bias."
+    },
+    {
+      "id": "tradeoff",
+      "weight": 25,
+      "full": "Compares at least two feasible allocations in terms of continuity, anomaly follow-up or geographic representation.",
+      "partial": "Provides only one allocation with little justification."
+    },
+    {
+      "id": "next-wave",
+      "weight": 15,
+      "full": "Gives a measurable next-quarter decision, including how new plots will be selected or revisited.",
+      "partial": "Mentions next quarter without a selection trigger."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a measurement review choosing the next test before declaring a physical change.",
+  "source": "Two teams measured ten oscillations. Team A recorded 20.0 s at a stated 1.00 m and team B 20.8 s at 1.00 m. A timed from a center crossing, B from release using a handheld timer. The clamps were refitted between trials. A camera and meter stick are available for one afternoon.",
+  "criteria": [
+    {
+      "id": "scale",
+      "weight": 30,
+      "full": "Converts to 2.00 and 2.08 seconds per oscillation, a difference of about 4%.",
+      "partial": "Identifies the timing discrepancy without normalizing by ten."
+    },
+    {
+      "id": "mechanism",
+      "weight": 30,
+      "full": "Distinguishes timing convention or reaction bias from uncertainty in effective pivot-to-bob length.",
+      "partial": "Lists causes without tying them to observed procedural differences."
+    },
+    {
+      "id": "design",
+      "weight": 25,
+      "full": "Proposes a common crossing rule and video timing, independent length checks and repeated measurements.",
+      "partial": "Controls either timing or length without a repeatable comparison."
+    },
+    {
+      "id": "interpretation",
+      "weight": 15,
+      "full": "Explains what result would support a timing artifact versus a persistent length or setup effect.",
+      "partial": "Asks for retesting without specifying how outcomes change the conclusion."
+    }
+  ]
+}

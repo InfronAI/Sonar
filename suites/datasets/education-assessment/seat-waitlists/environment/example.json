@@ -1,0 +1,31 @@
+{
+  "input": {
+    "capacities": {
+      "art": 1
+    },
+    "requests": [
+      [
+        "a",
+        "art",
+        2,
+        1
+      ],
+      [
+        "b",
+        "art",
+        1,
+        9
+      ]
+    ]
+  },
+  "expected": {
+    "art": {
+      "admitted": [
+        "b"
+      ],
+      "waitlist": [
+        "a"
+      ]
+    }
+  }
+}

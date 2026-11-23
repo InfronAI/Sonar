@@ -1,0 +1,40 @@
+[
+  {
+    "input": [
+      [
+        "b",
+        "[Doc:A1#Sec:12] [Doc:A1#Sec:12]"
+      ],
+      [
+        "a",
+        "[Doc:A1#Sec:12][Doc:B#Sec:3]"
+      ]
+    ],
+    "expected": {
+      "A1#12": [
+        "b",
+        "a"
+      ],
+      "B#3": [
+        "a"
+      ]
+    }
+  },
+  {
+    "input": [
+      [
+        "x",
+        "[Doc:a#Sec:1] [Doc:A#Sec:0] [Doc:A#Sec:02] [Doc:OK#Sec:10]"
+      ]
+    ],
+    "expected": {
+      "OK#10": [
+        "x"
+      ]
+    }
+  },
+  {
+    "input": [],
+    "expected": {}
+  }
+]

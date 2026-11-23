@@ -1,0 +1,12 @@
+{
+  "name": "sonar-eval-agents",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/claude-code": "2.1.323",
+    "@earendil-works/pi-coding-agent": "1.6.0",
+    "@github/copilot": "1.0.114",
+    "@openai/codex": "0.170.0",
+    "opencode-ai": "1.19.6"
+  }
+}

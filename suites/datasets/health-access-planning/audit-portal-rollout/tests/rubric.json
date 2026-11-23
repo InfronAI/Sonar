@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare an operational review of a portal reminder pilot for a fictional clinic.",
+  "source": "The portal group had 16 no-shows in 200 bookings. The phone group had 18 in 150. Staff selected portal users from patients with verified email. Only 40% of bookings in one language group had a verified email, compared with 85% elsewhere. No information on prior attendance or message delivery was collected.",
+  "criteria": [
+    {
+      "id": "rates",
+      "weight": 30,
+      "full": "Computes 8% versus 12% and describes the four-percentage-point observed gap.",
+      "partial": "Reports a direction or relative claim without correct denominators."
+    },
+    {
+      "id": "causality",
+      "weight": 30,
+      "full": "Identifies nonrandom channel assignment and missing prior attendance or delivery as alternative explanations.",
+      "partial": "Mentions bias without grounding it in selection or delivery."
+    },
+    {
+      "id": "access",
+      "weight": 25,
+      "full": "Proposes a practical phone or assisted alternative for people without verified email and explains the language disparity.",
+      "partial": "Calls the program inclusive without an accessible channel."
+    },
+    {
+      "id": "design",
+      "weight": 15,
+      "full": "Defines a feasible comparison within eligible patients, delivery logging and a disparity check before expansion.",
+      "partial": "Suggests a larger pilot without addressing assignment or access."
+    }
+  ]
+}

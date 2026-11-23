@@ -1,0 +1,30 @@
+<div class="guide-part">
+  <h3>Run one combination from the CLI</h3>
+  <p>From the project root, choose an agent with <code>--cli</code>, a provider with <code>--provider</code>, an exact model ID with <code>--model</code> and a task or suite with <code>--suite</code>. Run <code>doctor</code> to check the selection and installed images. Use the same arguments with <code>run</code> to start the evaluation.</p>
+  <details><summary>Connect Pi to your own provider</summary>
+    <p>Replace the example model ID and gateway URL with your provider’s values. Set <code>TEAM_MODEL_KEY</code> in the launch environment. Pi uses a Chat Completions endpoint for this example.</p>
+    <pre class="command"><code>./sonar doctor --cli pi --provider team-gateway --model team/model-v2 \
+  --base-url https://gateway.example.com/v1 --api-key-env TEAM_MODEL_KEY \
+  --suite suites/datasets/sql-analytics
+./sonar run --cli pi --provider team-gateway --model team/model-v2 \
+  --base-url https://gateway.example.com/v1 --api-key-env TEAM_MODEL_KEY \
+  --suite suites/datasets/sql-analytics</code></pre>
+  </details>
+</div>
+<div class="guide-part">
+  <h3>Compare several combinations with JSON</h3>
+  <p>Save the template as <code>configs/my-eval.json</code>. It compares Pi and Claude Code on the same Infron model. Each agent attempts every task in the SQL suite twice. For Infron access, use <code>./sonar set-key infron</code> once in this workspace.</p>
+  <div class="links"><a href="example-matrix.json" download="my-eval.json">Download JSON template</a></div>
+  <details><summary>View the JSON template</summary><pre class="command"><code>$matrix</code></pre></details>
+  <ul>
+    <li><code>suite</code> is relative to the JSON file. Use <code>../suites/all-tasks.json</code> for the full collection.</li>
+    <li>Choose <code>../suites/all-tasks-v3.json</code> for the original 60 deterministic tasks or <code>../suites/rubric-tasks.json</code> for the 40 assessed by Infron’s <code>infron/op-5.5</code>. The 100-task collection includes both.</li>
+    <li><code>agents</code> and <code>models</code> form all combinations by default. To select specific pairs, add <code>"pairs": [["glm", "pi"]]</code> using the model ID first.</li>
+    <li><code>repetitions</code> sets attempts per pair and task. <code>agent_timeout_seconds</code> limits agent execution and <code>timeout_seconds</code> covers the entire trial, including setup and verification.</li>
+    <li><code>inference</code> sets controls such as <code>max_tokens</code> for supported agents. CLI overrides take precedence. The run saves the resolved values in <code>plan.json</code>.</li>
+  </ul>
+  <pre class="command"><code>./sonar doctor --config configs/my-eval.json
+./sonar run --config configs/my-eval.json</code></pre>
+  <p>Completed evaluations appear in <a href="runs.html">Run history</a> and <a href="rankings.html">Rankings</a>.</p>
+</div>
+$files

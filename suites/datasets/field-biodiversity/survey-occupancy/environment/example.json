@@ -1,0 +1,18 @@
+{
+  "input": [
+    [
+      "marsh",
+      "v1",
+      true,
+      [
+        "heron"
+      ]
+    ]
+  ],
+  "expected": {
+    "heron": [
+      1,
+      1
+    ]
+  }
+}

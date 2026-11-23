@@ -1,0 +1,18 @@
+{
+  "input": {
+    "weights": {
+      "lab": 2
+    },
+    "scores": [
+      [
+        "Sam",
+        "lab",
+        7,
+        10
+      ]
+    ]
+  },
+  "expected": {
+    "Sam": "70"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a registration policy memo balancing graduation needs and transparent access.",
+  "source": "A lab course has 30 seats, 25 continuing enrollments and 14 applicants for the remaining seats. Six applicants need it to graduate this term. Existing first-come registration favors users available online at noon. The lab cannot exceed 30 seats. A second section would need instructor approval by Friday.",
+  "criteria": [
+    {
+      "id": "capacity",
+      "weight": 30,
+      "full": "Identifies five openings and at least one unmet graduation need even if all openings prioritize that group.",
+      "partial": "Recognizes scarcity without reconciling seats and graduation needs."
+    },
+    {
+      "id": "rule",
+      "weight": 30,
+      "full": "Defines a transparent eligibility check and fair tie breaker within priority groups without exceeding capacity.",
+      "partial": "Uses a priority slogan without resolving a tie among six."
+    },
+    {
+      "id": "alternative",
+      "weight": 25,
+      "full": "Develops a conditional second-section or approved substitute path and an actionable Friday deadline.",
+      "partial": "Assumes a second section is available without approval."
+    },
+    {
+      "id": "communication",
+      "weight": 15,
+      "full": "Specifies notice, an appeal or correction window and a measurable access outcome.",
+      "partial": "Mentions communicating the result without explaining correction or evaluation."
+    }
+  ]
+}

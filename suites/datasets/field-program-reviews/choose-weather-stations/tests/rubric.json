@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare a field director's recommendation for adding two stations to a regional network.",
+  "source": "Existing stations are three downtown rooftops. Candidate V is a rural valley with mains power. Candidate H is an exposed highland with reliable solar power. Candidate R is another downtown roof with excellent connectivity. Comparison to a 20-year downtown series matters, but the new objective is regional coverage during heat events. Budget supports two new sites and a two-week portable overlap.",
+  "criteria": [
+    {
+      "id": "selection",
+      "weight": 30,
+      "full": "Selects exactly two candidates and explains how their exposures complement or duplicate the existing network.",
+      "partial": "Picks sites mainly for convenience without addressing coverage."
+    },
+    {
+      "id": "continuity",
+      "weight": 30,
+      "full": "Uses the portable overlap or other calibration comparison to relate new records to the downtown series.",
+      "partial": "Claims that comparable instruments alone establish historical continuity."
+    },
+    {
+      "id": "interpretation",
+      "weight": 25,
+      "full": "Distinguishes site-specific temperatures from an area-wide mean and explains limits of spatial weighting or population exposure.",
+      "partial": "Averages all five without considering their representation."
+    },
+    {
+      "id": "operations",
+      "weight": 15,
+      "full": "Assigns heat-event uptime and metadata checks with a condition for revisiting placement.",
+      "partial": "Mentions maintenance without a measurable observation."
+    }
+  ]
+}

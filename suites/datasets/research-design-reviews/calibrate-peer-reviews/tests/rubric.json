@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Design a short calibration exercise for reviewers selecting student projects.",
+  "source": "Four reviewers each rated ten different projects on a five-point scale. Reviewers' mean ratings range from 2.8 to 4.1. Each reviewer saw one subject area only. A second round can afford 24 ratings on eight anonymized projects. The committee wants to distinguish severity differences from project quality and keep a usable appeals record.",
+  "criteria": [
+    {
+      "id": "identification",
+      "weight": 30,
+      "full": "Explains why the first-round reviewer means confound subject matter, project mix and reviewer severity.",
+      "partial": "Treats the difference in means as a direct severity estimate."
+    },
+    {
+      "id": "assignment",
+      "weight": 30,
+      "full": "Uses the 24 ratings as three per project or an equally defensible connected overlapping design with explicit counts.",
+      "partial": "Proposes double rating without reconciling ratings and connectivity."
+    },
+    {
+      "id": "calibration",
+      "weight": 25,
+      "full": "Defines anchors, blinded independent scoring and a way to examine within-project disagreement or reviewer effects.",
+      "partial": "Suggests a group discussion without independent comparisons."
+    },
+    {
+      "id": "governance",
+      "weight": 15,
+      "full": "Defines how discrepancies are adjudicated, records rationale and limits the generalization from eight projects.",
+      "partial": "Overstates precision or omits an auditable appeal path."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare a product-engineering handoff for reconciling offline edits to a shared reading list.",
+  "source": "A tablet renames an item offline while a laptop changes its priority. On reconnect the current server replaces the whole item. Two devices sometimes edit the same title. Device clocks have differed by 11 minutes. A delete followed by a stale edit has resurrected items. Users need a visible explanation for unresolved conflicts.",
+  "criteria": [
+    {
+      "id": "merge",
+      "weight": 30,
+      "full": "Preserves independent field edits and proposes server revisions or equivalent causal evidence instead of trusting device clocks.",
+      "partial": "Discusses merges but overlooks independent fields or clock skew."
+    },
+    {
+      "id": "conflict",
+      "weight": 30,
+      "full": "Handles same-field disagreements with a deterministic policy and a visible recovery or choice.",
+      "partial": "Specifies a winner without user-facing recovery."
+    },
+    {
+      "id": "deletion",
+      "weight": 25,
+      "full": "Uses deletion markers or equivalent revision checks to prevent stale resurrection and explains explicit restore.",
+      "partial": "Mentions delete conflicts without preventing stale writes."
+    },
+    {
+      "id": "tests",
+      "weight": 15,
+      "full": "Covers reversed arrival order, duplicate replay and the three supplied conflict scenarios with concrete assertions.",
+      "partial": "Lists cases without stating expected reconciliation outcomes."
+    }
+  ]
+}

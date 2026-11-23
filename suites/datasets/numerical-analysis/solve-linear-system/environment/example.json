@@ -1,0 +1,14 @@
+{
+  "input": [
+    [
+      2,
+      3
+    ]
+  ],
+  "expected": {
+    "status": "unique",
+    "values": [
+      "3/2"
+    ]
+  }
+}

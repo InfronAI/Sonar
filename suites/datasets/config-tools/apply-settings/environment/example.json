@@ -1,0 +1,33 @@
+{
+  "input": {
+    "base": {
+      "db": {
+        "host": "a",
+        "ports": [
+          1
+        ],
+        "old": true
+      },
+      "keep": 1
+    },
+    "patch": {
+      "db": {
+        "ports": [
+          2
+        ],
+        "old": null
+      },
+      "new": false
+    }
+  },
+  "expected": {
+    "db": {
+      "host": "a",
+      "ports": [
+        2
+      ]
+    },
+    "keep": 1,
+    "new": false
+  }
+}

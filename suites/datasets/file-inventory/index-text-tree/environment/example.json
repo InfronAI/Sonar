@@ -1,0 +1,20 @@
+{
+  "input": {
+    "docs/a.txt": "a\nβ\n",
+    "README.txt": "one",
+    "image.png": "xx",
+    ".cache/a.txt": "x"
+  },
+  "expected": [
+    [
+      "README.txt",
+      3,
+      1
+    ],
+    [
+      "docs/a.txt",
+      5,
+      2
+    ]
+  ]
+}

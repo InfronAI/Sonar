@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write an implementation handoff for a database field transition during a rolling client release.",
+  "source": "Old clients read and write display_name. New clients need preferred_name. Fleet rollout takes seven days. Historical rows contain 8% null display names. Rollback restores old clients. The team can add nullable columns without downtime and run a resumable backfill.",
+  "criteria": [
+    {
+      "id": "compatibility",
+      "weight": 30,
+      "full": "Stages an additive column, compatible reads/writes and a later cutover after old clients leave.",
+      "partial": "Suggests adding the column without explaining mixed-version behavior."
+    },
+    {
+      "id": "history",
+      "weight": 30,
+      "full": "Defines an explicit policy for existing nulls and an idempotent backfill that respects concurrent edits.",
+      "partial": "Mentions backfill but assumes all names exist or overwrites new writes."
+    },
+    {
+      "id": "rollback",
+      "weight": 25,
+      "full": "Preserves old-client readability and defines when to stop or reverse cutover safely.",
+      "partial": "Mentions rollback without specifying compatible data."
+    },
+    {
+      "id": "evidence",
+      "weight": 15,
+      "full": "Assigns checks for mismatch and remaining old client traffic before removing the legacy field.",
+      "partial": "Calls for monitoring without named signals or a removal gate."
+    }
+  ]
+}

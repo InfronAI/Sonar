@@ -1,0 +1,16 @@
+{
+  "input": [
+    [
+      0,
+      2
+    ],
+    [
+      4,
+      6
+    ]
+  ],
+  "expected": {
+    "twice_microjoules": 32,
+    "span_mm": 4
+  }
+}

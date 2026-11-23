@@ -1,0 +1,46 @@
+[
+  {
+    "input": {
+      "docs/a.txt": "a\nβ\n",
+      "README.txt": "one",
+      "image.png": "xx",
+      ".cache/a.txt": "x"
+    },
+    "expected": [
+      [
+        "README.txt",
+        3,
+        1
+      ],
+      [
+        "docs/a.txt",
+        5,
+        2
+      ]
+    ]
+  },
+  {
+    "input": {
+      "deep/x/z.txt": "\r\nb",
+      "deep/empty.txt": "",
+      "upper.TXT": "abc",
+      "deep/.hidden.txt": "no"
+    },
+    "expected": [
+      [
+        "deep/empty.txt",
+        0,
+        0
+      ],
+      [
+        "deep/x/z.txt",
+        3,
+        2
+      ]
+    ]
+  },
+  {
+    "input": {},
+    "expected": []
+  }
+]

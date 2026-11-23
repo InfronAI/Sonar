@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare a case-intake note using only the fictional calendar and rules supplied.",
+  "source": "Rule A allows ten calendar days after receipt, excluding the receipt day. If the last day is a closure day, filing moves to the next open day. A notice arrived Thursday the 2nd. The 12th is a closed Sunday and the 13th is a special closure. The portal receipt is dated Tuesday the 14th at 16:40. The portal's daily cutoff is 17:00.",
+  "criteria": [
+    {
+      "id": "count",
+      "weight": 30,
+      "full": "Counts day one on the 3rd and day ten on the 12th.",
+      "partial": "Identifies the approximate deadline without applying the exclusion rule."
+    },
+    {
+      "id": "closure",
+      "weight": 30,
+      "full": "Moves from the closed 12th past the special closure on the 13th to the open 14th.",
+      "partial": "Accounts for the Sunday but overlooks the special closure."
+    },
+    {
+      "id": "filing",
+      "weight": 25,
+      "full": "Compares 16:40 to the 17:00 cutoff and reaches a conditional timely determination.",
+      "partial": "States timely or late without checking the timestamp."
+    },
+    {
+      "id": "record",
+      "weight": 15,
+      "full": "Identifies receipt, closure calendar and submission proof to preserve, and limits the conclusion to intake timing.",
+      "partial": "Gives a merits conclusion or fails to identify supporting records."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Advise a quality supervisor how to treat a change in a reference lot in a historical data series.",
+  "source": "The old lot's assigned reading was 100 units and the new lot's assigned reading is 102. Control means before and after the switch are 100.5 and 102.4. The instrument was serviced on the same date. There are three unopened old-lot units, repeated new-lot units and one instrument-day for a bridging comparison.",
+  "criteria": [
+    {
+      "id": "normalization",
+      "weight": 30,
+      "full": "Compares deviations from the assigned values, +0.5 and +0.4, rather than attributing the 1.9-unit raw shift to drift.",
+      "partial": "Recognizes the assigned-value difference but gives no corrected comparison."
+    },
+    {
+      "id": "identifiability",
+      "weight": 30,
+      "full": "Explains why coincident service and lot change cannot be separated by the historical means alone.",
+      "partial": "Mentions a confounder without specifying the two changes."
+    },
+    {
+      "id": "bridge",
+      "weight": 25,
+      "full": "Designs an interleaved same-day old/new comparison with repeats and traceable lot identifiers within available units.",
+      "partial": "Proposes a bridge without a pairing or repeat plan."
+    },
+    {
+      "id": "decision",
+      "weight": 15,
+      "full": "Records residual uncertainty and specifies a criterion or owner for joining or flagging historical segments.",
+      "partial": "Suggests updating records without a decision rule."
+    }
+  ]
+}

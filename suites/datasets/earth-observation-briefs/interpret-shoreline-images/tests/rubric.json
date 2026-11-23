@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a planning briefing on two shoreline images and the evidence needed before designating erosion.",
+  "source": "The mapped waterline shifted landward 12 m. Image A was taken at low tide and B at high tide. The local intertidal slope is 1 vertical to 20 horizontal and the water level differed by 0.5 m. Each image has up to 2 m registration error. Construction decisions use a 5 m persistent retreat threshold.",
+  "criteria": [
+    {
+      "id": "tide",
+      "weight": 30,
+      "full": "Estimates about 10 m apparent horizontal displacement from the tide difference and slope.",
+      "partial": "Identifies tide as relevant without deriving displacement."
+    },
+    {
+      "id": "residual",
+      "weight": 30,
+      "full": "Compares the roughly 2 m residual with positional error and the 5 m persistent threshold.",
+      "partial": "Computes the residual without assessing its significance."
+    },
+    {
+      "id": "repeat",
+      "weight": 25,
+      "full": "Proposes co-registered, comparable-tide observations across time or surveyed fixed markers.",
+      "partial": "Requests more imagery without controlling tide or alignment."
+    },
+    {
+      "id": "advice",
+      "weight": 15,
+      "full": "Gives a proportionate decision and distinguishes uncertainty from proof of stability.",
+      "partial": "Gives a categorical erosion or stability decision from two images."
+    }
+  ]
+}

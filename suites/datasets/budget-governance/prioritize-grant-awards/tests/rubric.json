@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a grant-chair recommendation under the stated fictional program rules.",
+  "source": "The budget is $90k. Applications X, Y and Z request $55k, $45k and $30k. Grants must be fully funded unless the applicant accepts a reduced scope in writing. X serves rural residents, Y has twice the expected participants of X, and Z repairs a shared facility used by both. The program values access and shared benefits. No written scope reductions exist.",
+  "criteria": [
+    {
+      "id": "feasible",
+      "weight": 30,
+      "full": "Identifies X+Z at $85k and Y+Z at $75k as feasible full awards and X+Y at $100k as over budget.",
+      "partial": "Chooses a feasible portfolio but omits the binding rule or alternatives."
+    },
+    {
+      "id": "criteria",
+      "weight": 30,
+      "full": "Weighs rural access, reach and the shared benefit without double-counting facility users.",
+      "partial": "Uses participant volume alone or double-counts the common facility benefit."
+    },
+    {
+      "id": "decision",
+      "weight": 25,
+      "full": "Justifies a selected portfolio under stated priorities and identifies what evidence could reverse it.",
+      "partial": "Picks a feasible pair without a tradeoff or evidence condition."
+    },
+    {
+      "id": "governance",
+      "weight": 15,
+      "full": "Handles any reduced award through written consent and records a transparent review or reserve decision.",
+      "partial": "Assumes a reduced scope is automatic."
+    }
+  ]
+}

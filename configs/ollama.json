@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "track": "agent-cli",
+  "suite": "../suites/all-tasks.json",
+  "timeout_seconds": 1200,
+  "agent_timeout_seconds": 600,
+  "models": [
+    {"id": "qwen", "family": "Qwen3-VL", "version": "2b-instruct", "name": "qwen3-vl:2b-instruct", "provider": "ollama"}
+  ],
+  "agents": ["pi"]
+}

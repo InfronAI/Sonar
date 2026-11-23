@@ -1,0 +1,84 @@
+[
+  {
+    "input": [
+      [
+        "A",
+        "after",
+        "x",
+        true
+      ],
+      [
+        "A",
+        "before",
+        "x",
+        true
+      ],
+      [
+        "A",
+        "after",
+        "x",
+        false
+      ],
+      [
+        "A",
+        "after",
+        "y",
+        true
+      ],
+      [
+        "B",
+        "before",
+        "z",
+        true
+      ]
+    ],
+    "expected": {
+      "A": [
+        1,
+        -1
+      ],
+      "B": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "input": [
+      [
+        "A",
+        "before",
+        "k",
+        false
+      ],
+      [
+        "A",
+        "after",
+        "k",
+        true
+      ],
+      [
+        "A",
+        "before",
+        "j",
+        true
+      ],
+      [
+        "A",
+        "after",
+        "j",
+        false
+      ]
+    ],
+    "expected": {
+      "A": [
+        2,
+        0
+      ]
+    }
+  },
+  {
+    "input": [],
+    "expected": {}
+  }
+]

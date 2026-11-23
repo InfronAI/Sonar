@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Prepare a short approval-path memo for a project manager working under fictional procurement rules.",
+  "source": "The signed cap is $80k for site A only. A manager emailed a request to add site B for $12k. Rule S requires written amendments signed by both designated officers for any added site. Rule V requires finance review when the cumulative cap exceeds $90k. A $4k credit has been proposed but not signed. Site B work is scheduled for tomorrow.",
+  "criteria": [
+    {
+      "id": "authority",
+      "weight": 30,
+      "full": "Identifies the new site as requiring both designated signatures regardless of price.",
+      "partial": "Identifies approval but misses either the site trigger or signatures."
+    },
+    {
+      "id": "financial",
+      "weight": 30,
+      "full": "Computes proposed $92k cap and finance review, and treats the unsigned credit as contingent.",
+      "partial": "Mentions the $90k rule without resolving the credit."
+    },
+    {
+      "id": "sequencing",
+      "weight": 25,
+      "full": "Gives a practicable hold or reschedule decision for site B while existing authorized site A work can continue.",
+      "partial": "Flags schedule risk without isolating authorized work."
+    },
+    {
+      "id": "closure",
+      "weight": 15,
+      "full": "Names evidence to release the hold including signed scope, approved cap and communication to the work owner.",
+      "partial": "Requests signatures without a release or communication step."
+    }
+  ]
+}

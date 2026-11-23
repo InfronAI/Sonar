@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Advise a committee choosing between two sites under a two-criterion index.",
+  "source": "On a 0–100 scale, site A scores 80 for access and 50 for cost performance. Site B scores 60 and 80 respectively. The index weights access by w and cost by 1−w. A committee favors w=0.7 but another group favors w=0.4. Scores carry several points of measurement uncertainty.",
+  "criteria": [
+    {
+      "id": "boundary",
+      "weight": 30,
+      "full": "Derives A = 50+30w, B = 80−20w and the tie at w=0.6.",
+      "partial": "Finds the correct winner at one weight without locating the switch."
+    },
+    {
+      "id": "scenarios",
+      "weight": 30,
+      "full": "Computes A/B as 71/66 at 0.7 and 62/72 at 0.4 or equivalent checked differences.",
+      "partial": "Computes just one scenario correctly."
+    },
+    {
+      "id": "uncertainty",
+      "weight": 25,
+      "full": "Explains how score uncertainty near the boundary can change a decision and suggests sensitivity ranges.",
+      "partial": "Treats the weights as the sole source of uncertainty."
+    },
+    {
+      "id": "governance",
+      "weight": 15,
+      "full": "Asks stakeholders to justify weights before selection and records tradeoffs or robustness conditions.",
+      "partial": "Chooses weights after seeing the preferred winner without disclosure."
+    }
+  ]
+}

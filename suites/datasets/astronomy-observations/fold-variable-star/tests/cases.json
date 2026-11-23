@@ -1,0 +1,94 @@
+[
+  {
+    "input": {
+      "epoch": 3,
+      "period": 5,
+      "bin_count": 3,
+      "observations": [
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          8,
+          null
+        ]
+      ]
+    },
+    "expected": [
+      [
+        2,
+        "11/2"
+      ],
+      [
+        1,
+        "-1"
+      ],
+      [
+        1,
+        "5"
+      ]
+    ]
+  },
+  {
+    "input": {
+      "epoch": 0,
+      "period": 2,
+      "bin_count": 4,
+      "observations": [
+        [
+          -4,
+          0
+        ],
+        [
+          -1,
+          9
+        ]
+      ]
+    },
+    "expected": [
+      [
+        1,
+        "0"
+      ],
+      [
+        0,
+        null
+      ],
+      [
+        1,
+        "9"
+      ],
+      [
+        0,
+        null
+      ]
+    ]
+  },
+  {
+    "input": {
+      "epoch": 1,
+      "period": 1,
+      "bin_count": 1,
+      "observations": []
+    },
+    "expected": [
+      [
+        0,
+        null
+      ]
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Draft a clinic operations note on whether a new callback workflow improved access.",
+  "source": "Before the pilot 800 calls arrived, 120 were abandoned and 600 distinct patients were identified. During the pilot 1,000 calls arrived, 100 were abandoned and 620 distinct patients were identified. Callback promises were offered to 180 callers. Only 150 callback completions were logged and some callers dialed repeatedly. No wait-time distribution was stored.",
+  "criteria": [
+    {
+      "id": "rates",
+      "weight": 30,
+      "full": "Computes abandonment of 15% versus 10% and callback completion of 150/180, about 83%.",
+      "partial": "Computes one denominator correctly but omits the other measure."
+    },
+    {
+      "id": "unit",
+      "weight": 30,
+      "full": "Distinguishes calls from people and recognizes that repeat dialing and unidentified callers limit patient-level claims.",
+      "partial": "Recognizes higher volume but conflates people and calls."
+    },
+    {
+      "id": "uncertainty",
+      "weight": 25,
+      "full": "Explains why missing wait times and callback outcomes prevent a complete access conclusion.",
+      "partial": "Equates lower abandonment with faster resolution."
+    },
+    {
+      "id": "next",
+      "weight": 15,
+      "full": "Defines a prospective patient-level or episode-level metric, callback deadline and owner for outstanding promises.",
+      "partial": "Requests better data without a definition or follow-up step."
+    }
+  ]
+}

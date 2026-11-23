@@ -1,0 +1,67 @@
+[
+  {
+    "input": {
+      "standards": [
+        [
+          8,
+          2
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "samples": [
+        2,
+        3,
+        6,
+        8,
+        1,
+        9
+      ]
+    },
+    "expected": [
+      "6",
+      "17/3",
+      "4",
+      "2",
+      null,
+      null
+    ]
+  },
+  {
+    "input": {
+      "standards": [
+        [
+          -1,
+          4
+        ]
+      ],
+      "samples": [
+        -2,
+        -1,
+        0
+      ]
+    },
+    "expected": [
+      null,
+      "4",
+      null
+    ]
+  },
+  {
+    "input": {
+      "standards": [],
+      "samples": [
+        0
+      ]
+    },
+    "expected": [
+      null
+    ]
+  }
+]

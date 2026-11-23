@@ -1,0 +1,2 @@
+CREATE TABLE invoices (id TEXT PRIMARY KEY, cents INTEGER NOT NULL);
+CREATE TABLE payments (invoice_id TEXT NOT NULL, cents INTEGER NOT NULL);

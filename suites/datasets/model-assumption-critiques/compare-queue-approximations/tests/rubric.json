@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a short modeling review before an information desk changes staffing.",
+  "source": "An analyst fits a stationary single-server queue with 8 arrivals/hour and capacity 10/hour. Under the supplied model the mean time in system is 1/(capacity minus arrivals) hours. Counts over three successive hours were 3, 6 and 15. Staff take a 15-minute break during the busiest hour. The desk has not recorded individual waiting times.",
+  "criteria": [
+    {
+      "id": "calculation",
+      "weight": 30,
+      "full": "Computes the model estimate of 0.5 hours and identifies it as time in system under its assumptions.",
+      "partial": "Computes 0.5 but labels it as observed waiting time or omits units."
+    },
+    {
+      "id": "assumptions",
+      "weight": 30,
+      "full": "Connects the hourly burst and break to violations of stationary arrival or capacity assumptions.",
+      "partial": "Notes small data or variability without explaining model impact."
+    },
+    {
+      "id": "alternative",
+      "weight": 25,
+      "full": "Proposes time-resolved simulation or a piecewise model with actual service and arrival data.",
+      "partial": "Suggests a more complex model without specifying needed observations."
+    },
+    {
+      "id": "decision",
+      "weight": 15,
+      "full": "Defines a staffing pilot and a measured wait or tail metric before changing permanent coverage.",
+      "partial": "Makes a permanent decision from the stationary mean alone."
+    }
+  ]
+}

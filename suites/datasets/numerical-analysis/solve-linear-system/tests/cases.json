@@ -1,0 +1,75 @@
+[
+  {
+    "input": [
+      [
+        0,
+        2,
+        1
+      ],
+      [
+        3,
+        0,
+        4
+      ],
+      [
+        6,
+        0,
+        8
+      ]
+    ],
+    "expected": {
+      "status": "unique",
+      "values": [
+        "4/3",
+        "1/2"
+      ]
+    }
+  },
+  {
+    "input": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        2,
+        4,
+        7
+      ]
+    ],
+    "expected": {
+      "status": "inconsistent"
+    }
+  },
+  {
+    "input": [
+      [
+        0,
+        1,
+        0,
+        4
+      ],
+      [
+        0,
+        2,
+        0,
+        8
+      ]
+    ],
+    "expected": {
+      "status": "underdetermined"
+    }
+  },
+  {
+    "input": [
+      [
+        0,
+        0
+      ]
+    ],
+    "expected": {
+      "status": "underdetermined"
+    }
+  }
+]

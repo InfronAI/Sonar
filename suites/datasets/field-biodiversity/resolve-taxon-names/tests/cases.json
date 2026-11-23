@@ -1,0 +1,75 @@
+[
+  {
+    "input": {
+      "aliases": {
+        "a": "b",
+        "b": "c",
+        "d": "e",
+        "e": "d",
+        "f": "d"
+      },
+      "observations": [
+        [
+          "a",
+          3
+        ],
+        [
+          "c",
+          2
+        ],
+        [
+          "f",
+          7
+        ],
+        [
+          "d",
+          1
+        ],
+        [
+          "z",
+          0
+        ]
+      ]
+    },
+    "expected": {
+      "accepted": {
+        "c": 5,
+        "z": 0
+      },
+      "unresolved": 8
+    }
+  },
+  {
+    "input": {
+      "aliases": {
+        "self": "self"
+      },
+      "observations": [
+        [
+          "self",
+          9
+        ],
+        [
+          "oak",
+          1
+        ]
+      ]
+    },
+    "expected": {
+      "accepted": {
+        "oak": 1
+      },
+      "unresolved": 9
+    }
+  },
+  {
+    "input": {
+      "aliases": {},
+      "observations": []
+    },
+    "expected": {
+      "accepted": {},
+      "unresolved": 0
+    }
+  }
+]

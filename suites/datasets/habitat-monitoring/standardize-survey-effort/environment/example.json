@@ -1,0 +1,13 @@
+{
+  "input": [
+    [
+      "pond",
+      30,
+      4,
+      true
+    ]
+  ],
+  "expected": {
+    "pond": "8"
+  }
+}

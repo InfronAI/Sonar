@@ -1,0 +1,104 @@
+[
+  {
+    "input": {
+      "observed": [
+        [
+          "p",
+          10
+        ],
+        [
+          "q",
+          8
+        ],
+        [
+          "r",
+          20
+        ]
+      ],
+      "references": [
+        [
+          "z",
+          9
+        ],
+        [
+          "a",
+          11
+        ]
+      ],
+      "tolerance": 1
+    },
+    "expected": [
+      [
+        "p",
+        "a",
+        -1
+      ],
+      [
+        "q",
+        "z",
+        -1
+      ],
+      [
+        "r",
+        null,
+        null
+      ]
+    ]
+  },
+  {
+    "input": {
+      "observed": [
+        [
+          "a",
+          0
+        ],
+        [
+          "b",
+          0
+        ]
+      ],
+      "references": [
+        [
+          "n",
+          -1
+        ],
+        [
+          "n",
+          1
+        ]
+      ],
+      "tolerance": 1
+    },
+    "expected": [
+      [
+        "a",
+        "n",
+        1
+      ],
+      [
+        "b",
+        "n",
+        1
+      ]
+    ]
+  },
+  {
+    "input": {
+      "observed": [
+        [
+          "x",
+          5
+        ]
+      ],
+      "references": [],
+      "tolerance": 0
+    },
+    "expected": [
+      [
+        "x",
+        null,
+        null
+      ]
+    ]
+  }
+]

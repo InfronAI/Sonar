@@ -1,0 +1,23 @@
+{
+  "input": {
+    "aliases": {
+      "old": "elm"
+    },
+    "observations": [
+      [
+        "old",
+        2
+      ],
+      [
+        "elm",
+        1
+      ]
+    ]
+  },
+  "expected": {
+    "accepted": {
+      "elm": 3
+    },
+    "unresolved": 0
+  }
+}

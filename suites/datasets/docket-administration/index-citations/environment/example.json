@@ -1,0 +1,13 @@
+{
+  "input": [
+    [
+      "p1",
+      "See [Doc:ACT#Sec:2]."
+    ]
+  ],
+  "expected": {
+    "ACT#2": [
+      "p1"
+    ]
+  }
+}

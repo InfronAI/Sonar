@@ -1,0 +1,34 @@
+{
+  "schema": "sonar-rubric-v1",
+  "provider": "infron",
+  "model": "infron/op-5.5",
+  "pass_threshold": 0.75,
+  "assignment": "Write a research lead's note on a proposed satisfaction claim and the next sampling plan.",
+  "source": "Of 600 invited subscribers, 180 replied and 144 were satisfied. Of 400 invited former subscribers, 40 replied and 16 were satisfied. The team wants to advertise an 80% satisfaction rate for everyone ever invited. There are no known responses from nonrespondents. A small follow-up budget can support 50 short calls.",
+  "criteria": [
+    {
+      "id": "estimates",
+      "weight": 30,
+      "full": "Computes respondent satisfaction of 80% in current and 40% in former subscribers, with response rates of 30% and 10%.",
+      "partial": "Gets satisfaction percentages but omits differing response rates."
+    },
+    {
+      "id": "scope",
+      "weight": 30,
+      "full": "Explains why neither 80% nor the pooled respondent rate identifies satisfaction for all invitees.",
+      "partial": "Mentions response bias without defining the claim's population."
+    },
+    {
+      "id": "sensitivity",
+      "weight": 25,
+      "full": "Offers a transparent scenario or bound such as 16% to 94% overall with unrestricted nonrespondents, and states its assumption.",
+      "partial": "Gives a weighted estimate as fact without a nonresponse assumption."
+    },
+    {
+      "id": "follow-up",
+      "weight": 15,
+      "full": "Allocates follow-up across the nonrespondent strata, prioritizes the underrepresented segment and defines how to report residual uncertainty.",
+      "partial": "Suggests 50 convenient calls without a sampling frame."
+    }
+  ]
+}
