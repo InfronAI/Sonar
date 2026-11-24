@@ -30,6 +30,12 @@ def experiments(root=ROOT):
             instruction = (task / "instruction.md").read_text(encoding="utf-8")
             heading = next((line[2:].strip() for line in instruction.splitlines() if line.startswith("# ")), case["id"])
             case.update(title=heading, instruction=instruction, path=task.relative_to(root).as_posix())
+            steps = task / "steps"
+            if steps.is_dir():
+                case["step_instructions"] = [(p.parent.name, p.read_text(encoding="utf-8"))
+                                             for p in sorted(steps.glob("*/instruction.md"))]
+                case["step_verifiers"] = [(p.relative_to(task).as_posix(), p.read_text(encoding="utf-8"))
+                                          for p in sorted(steps.glob("*/tests/test.sh"))]
             verifier = task / "tests/test.sh"
             if verifier.is_file():
                 case["verifier_script"] = verifier.read_text(encoding="utf-8")

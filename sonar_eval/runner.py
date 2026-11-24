@@ -3,7 +3,9 @@ import sys
 import tempfile
 import uuid
 from collections import Counter
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from pathlib import Path
+from threading import Event
 
 from . import images
 from .common import (
@@ -70,13 +72,15 @@ def prepare_plan(config_path, suite_path=None, overrides=None):
     return plan, origins
 
 
-def create_run(state, config_path, suite_path=None, overrides=None):
+def create_run(state, config_path, suite_path=None, overrides=None, *, purpose="evaluation"):
     plan, origins = prepare_plan(config_path, suite_path, overrides)
     started = utc_now()
     run_id = started.replace(":", "").replace("-", "").replace(".", "") + "-" + uuid.uuid4().hex[:8]
     directory = state / "runs" / run_id
     directory.mkdir(parents=True, exist_ok=False)
     try:
+        if "handbook" in plan:
+            (directory / "handbook.md").write_bytes(plan.pop("handbook").encode("utf-8"))
         snapshot_tasks(origins, directory / "tasks")
         for case in plan["suite"]["cases"]:
             task = directory / "tasks" / case["id"]
@@ -84,7 +88,7 @@ def create_run(state, config_path, suite_path=None, overrides=None):
                 raise SnapshotChanged(f"Task changed during snapshot: {case['id']}")
             images.pin_snapshot(task, case["docker_images"], plan.get("agent_timeout_seconds"))
             case["snapshot_sha256"] = task_hash(task)
-        plan.update({"run_id": run_id, "started_at": started})
+        plan.update({"run_id": run_id, "started_at": started, "purpose": purpose})
         write_json(directory / "plan.json", plan)
     except BaseException:
         shutil.rmtree(directory)
@@ -93,6 +97,10 @@ def create_run(state, config_path, suite_path=None, overrides=None):
 
 
 def validate_snapshot(plan, directory):
+    if "handbook_sha256" in plan:
+        handbook = directory / "handbook.md"
+        if not handbook.is_file() or file_hash(handbook) != plan["handbook_sha256"]:
+            raise SnapshotChanged("Operating guide differs from the frozen plan")
     if "execution_sha256" in plan and plan["execution_sha256"] != execution_hash():
         raise SnapshotChanged("Execution code changed since the run began. Start a new run with the current code")
     if file_hash(ROOT / "sonar_eval" / "grading.py") != plan["grader_sha256"]:
@@ -129,6 +137,59 @@ def combine_pair(model, agent, results):
             "seconds": sum(r["elapsed_seconds"] for r in results)}
 
 
+def committed_trial(plan, directory, entry, cancel=None):
+    index, model, agent, case, attempt = entry
+    trial = trial_dir(directory, index)
+    result_path = trial / "result.json"
+    if result_path.is_file():
+        return read_json(result_path)
+    if cancel is not None and cancel.is_set():
+        raise KeyboardInterrupt
+    trial.mkdir(parents=True, exist_ok=True)
+    evidence = Path(tempfile.mkdtemp(prefix="execution-", dir=trial))
+    options = {"cancel": cancel} if cancel is not None else {}
+    result = run_trial(plan, model, agent, case, attempt, directory, evidence, **options)
+    write_json(result_path, result)
+    return result
+
+
+def execute_plan(plan, directory):
+    entries = trials(plan)
+    workers = plan.get("workers", 1)
+    if workers == 1:
+        return [committed_trial(plan, directory, entry) for entry in entries]
+    cancel = Event()
+    pending = list(entries)
+    results, active = {}, {}
+    by_endpoint, judged = Counter(), 0
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        try:
+            while pending or active:
+                waiting = []
+                for entry in pending:
+                    index, model, _, case, _ = entry
+                    endpoint = model.get("base_url") or model.get("provider") or model["name"]
+                    uses_judge = bool(case.get("judge"))
+                    if (len(active) >= workers or by_endpoint[endpoint] >= plan.get("endpoint_workers", workers)
+                            or (uses_judge and judged >= plan.get("judge_workers", workers))):
+                        waiting.append(entry)
+                        continue
+                    future = pool.submit(committed_trial, plan, directory, entry, cancel)
+                    active[future] = (index, endpoint, uses_judge)
+                    by_endpoint[endpoint] += 1
+                    judged += uses_judge
+                pending = waiting
+                done, _ = wait(active, return_when=FIRST_COMPLETED)
+                for future in done:
+                    index, endpoint, uses_judge = active.pop(future)
+                    by_endpoint[endpoint] -= 1
+                    judged -= uses_judge
+                    results[index] = future.result()
+            return [results[i] for i in sorted(results)]
+        finally:
+            cancel.set()
+
+
 def evaluate(directory):
     with lock(directory / ".worker.lock"):
         final_path = directory / "summary.json"
@@ -138,17 +199,8 @@ def evaluate(directory):
         validate_snapshot(plan, directory)
         print(f"Running {plan['run_id']}  ({plan['track']})", file=sys.stderr, flush=True)
         by_pair = {(m, a): [] for m, a in plan["pairs"]}
-        for index, model, agent, case, attempt in trials(plan):
-            trial = trial_dir(directory, index)
-            result_path = trial / "result.json"
-            if result_path.is_file():
-                result = read_json(result_path)
-            else:
-                trial.mkdir(parents=True, exist_ok=True)
-                evidence = Path(tempfile.mkdtemp(prefix="execution-", dir=trial))
-                result = run_trial(plan, model, agent, case, attempt, directory, evidence)
-                write_json(result_path, result)
-            by_pair[model["id"], agent["id"]].append(result)
+        for result in execute_plan(plan, directory):
+            by_pair[result["model"], result["agent"]].append(result)
         pairs = [combine_pair(plan["models"][m], plan["agents"][a], results)
                  for (m, a), results in by_pair.items()]
         summary = {"schema": 1, "run_id": plan["run_id"], "started_at": plan["started_at"],
@@ -157,7 +209,8 @@ def evaluate(directory):
                    "suite": {k: plan["suite"][k] for k in ("id", "version", "grader")},
                    "repetitions": plan["repetitions"], "timeout_seconds": plan["timeout_seconds"],
                    "pairs": pairs}
-        for key in ("benchmark_sha256", "environment_sha256", "agent_timeout_seconds"):
+        for key in ("benchmark_sha256", "environment_sha256", "agent_timeout_seconds", "workers",
+                    "endpoint_workers", "judge_workers", "handbook_sha256"):
             if key in plan:
                 summary[key] = plan[key]
         write_json(final_path, summary)

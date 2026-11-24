@@ -96,10 +96,10 @@ if (task/'tests/rubric.json').exists():
                        capture_output=True, check=True)
         state = project / ".sonar"
         self.assertFalse(points(state))
-        self.assertIn("100 tasks", (state / "report.html").read_text())
+        self.assertIn("102 tasks", (state / "report.html").read_text())
         self.assertIn('href="report/rankings.html"', (state / "report.html").read_text())
         self.assertIn("after the first completed run", (state / "report/rankings.html").read_text())
-        self.assertEqual(len(list((state / "report").glob("dataset-*.html"))), 50)
+        self.assertEqual(len(list((state / "report").glob("dataset-*.html"))), 51)
         self.assertEqual(len(list((state / "report").glob("agent-*.html"))), 5)
         self.assertIn("No completed runs", (state / "report/agent-codex.html").read_text())
         catalog = (state / "report/experiments.html").read_text()
@@ -229,6 +229,72 @@ if (task/'tests/rubric.json').exists():
         with self.assertRaises(EvalError):
             harbor_grade({"verifier_result": {"rewards": {}}}, {"reward_key": "reward", "pass_threshold": 1})
         self.assertEqual(harbor_grade({"exception_info": {"exception_type": "AgentTimeoutError"}}, {})["status"], "timeout")
+
+    def test_handbook_is_frozen_and_compared_across_parallel_runs(self):
+        from sonar_eval.comparison import compare_runs
+        guide = self.base / "guide.md"
+        guide.write_text("Check the boundary cases.")
+        self.assertEqual(self.run_matrix(), 0)
+        baseline = next((self.state / "runs").iterdir())
+        args = {"handbook": guide, "workers": 2, "repetitions": 2}
+        candidate = runner.create_run(self.state, self.config, overrides=args)
+        guide.write_text("New instructions for a future run.")
+        self.assertEqual(len(runner.evaluate(candidate)["pairs"]), 1)
+        self.assertEqual((candidate / "handbook.md").read_text(), "Check the boundary cases.")
+        data = runner.inspect_run(candidate)
+        self.assertEqual(len(data["trials"]), 4)
+        for trial in data["trials"]:
+            argv = read_json(candidate / trial["evidence"] / "argv.json")
+            self.assertIn(str(candidate / "handbook.md"), argv)
+        prior_times = {p: p.stat().st_mtime_ns for p in candidate.glob("trials/*/result.json")}
+        runner.evaluate(candidate)
+        self.assertEqual(prior_times, {p: p.stat().st_mtime_ns for p in prior_times})
+        result = compare_runs(baseline, candidate)
+        self.assertIn("workers", result["changed_conditions"])
+        self.assertIn("handbook_sha256", result["changed_conditions"])
+        self.assertEqual(sum(t["count"] for t in result["transitions"]), 2)
+        self.assertEqual(self.cli("compare", baseline.name, candidate.name, "--state", self.state, "--json"), 0)
+        (candidate / "handbook.md").write_text("Edited snapshot")
+        with self.assertRaises(runner.SnapshotChanged):
+            runner.validate_snapshot(data["plan"], candidate)
+
+    def test_resource_limits_are_enforced_and_interrupted_parallel_trials_resume(self):
+        from threading import Barrier, Lock
+        cfg = {**self.cfg, "workers": 4, "endpoint_workers": 1, "judge_workers": 1}
+        cfg["models"] = [{**self.cfg["models"][0], "id": str(i), "base_url": f"http://route{i}/v1",
+                          "api_key_env": "SONAR_EVAL_OLLAMA_KEY"} for i in (1, 2)]
+        directory = runner.create_run(self.state, cfg)
+        plan = read_json(directory / "plan.json")
+        for case in plan["suite"]["cases"][:1]:
+            case["judge"] = {"model": "fixture"}
+        active, observed, guard = [], [], Lock()
+        # One judged trial and one non-judged trial on different endpoints must be admitted together.
+        barrier = Barrier(2, timeout=3)
+        def capture(plan, model, agent, case, attempt, root, evidence, **kwargs):
+            key = (model["base_url"], bool(case.get("judge")))
+            with guard:
+                active.append(key)
+                observed.append(list(active))
+            barrier.wait()
+            with guard:
+                active.remove(key)
+            return {"model": model["id"], "agent": agent["id"], "case": case["id"], "attempt": attempt,
+                    "status": "pass", "reward": 1, "elapsed_seconds": 0}
+        with patch.object(runner, "run_trial", side_effect=capture):
+            results = runner.execute_plan(plan, directory)
+        self.assertEqual(len(results), 4)
+        self.assertEqual(max(map(len, observed)), 2)
+        self.assertTrue(all(len({e for e, _ in batch}) == len(batch) and sum(j for _, j in batch) <= 1
+                            for batch in observed))
+        first = runner.trial_dir(directory, 1) / "result.json"
+        first_time = first.stat().st_mtime_ns
+        missing = runner.trial_dir(directory, 2) / "result.json"
+        missing.unlink()
+        with patch.object(runner, "run_trial", side_effect=KeyboardInterrupt), self.assertRaises(KeyboardInterrupt):
+            runner.evaluate(directory)
+        self.assertFalse((directory / "summary.json").exists())
+        self.assertEqual(len(runner.evaluate(directory)["pairs"]), 2)
+        self.assertEqual(first.stat().st_mtime_ns, first_time)
 
     def test_rejects_invalid_matrix(self):
         for key, value in [("pairs", [["unknown", "pi"]]), ("purpose", "reference")]:

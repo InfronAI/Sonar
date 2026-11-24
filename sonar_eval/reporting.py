@@ -7,6 +7,7 @@ from string import Template
 from .catalog import experiments
 from .common import ROOT, STATUSES, atomic_text, fingerprint, lock
 from .history import delta, points, report_evidence, series_key
+from .measurements import PHASES, USAGE, aligned_outcomes, repeatability, summarize_measurements
 from .native import agent_presets
 from .rankings import ranking_content
 from .report_html import (
@@ -76,10 +77,15 @@ def task_definition(case):
     if case.get("verifier_script"):
         verification += ('<details><summary>Verifier script · tests/test.sh</summary>'
                          f'<pre class="source"><code>{h(case["verifier_script"])}</code></pre></details>')
+    for path, script in case.get("step_verifiers", []):
+        verification += (f'<details><summary>{h(path)}</summary>'
+                         f'<pre class="source"><code>{h(script)}</code></pre></details>')
     command = shell_join(["./sonar", "run", "--suite", case["path"]])
+    instructions = "".join('<details><summary>' + h(name) + '</summary><pre class="task-prompt">'
+                           + h(text.rstrip()) + '</pre></details>' for name, text in case.get("step_instructions", []))
     return (f'<article class="task-definition" id="task-{h(case["id"])}"><h3>{h(case["title"])}</h3>'
             '<h4>Agent instruction and required submission</h4>'
-            f'<pre class="task-prompt">{h(case["instruction"].rstrip())}</pre><h4>Verification</h4>{verification}'
+            f'<pre class="task-prompt">{h(case["instruction"].rstrip())}</pre>{instructions}<h4>Verification</h4>{verification}'
             '<details><summary>Run this task</summary>'
             f'<code class="command">{h(command)}</code></details></article>')
 
@@ -119,6 +125,41 @@ def result_metrics(observations):
     runs, counts = totals(observations)
     return metrics([("Completed runs", runs), ("Task attempts", sum(counts.values())),
                     ("Pass rate", rate(counts)), ("Errors / timeouts", f"{counts['error']} / {counts['timeout']}")])
+
+
+def measurement_tables(trials, k):
+    measured = summarize_measurements(trials)
+    rows = []
+    for key, label in (USAGE | PHASES).items():
+        metric = h(label + (" (s)" if key in PHASES else ""))
+        stats = measured.get(key)
+        if stats is None:
+            rows.append(row([metric, "—", "—", f"0 / {len(trials)}"]))
+            continue
+        fmt = ".6f" if key == "cost_usd" else ",.2f"
+        rows.append(row([metric, format(stats["median"], fmt),
+                         format(stats["sum"], fmt), f'{stats["observed"]} / {len(trials)}']))
+    body = table(["Measurement", "Median per attempt", "Observed total", "Coverage"], rows)
+    repairs = []
+    for trial in trials:
+        steps = {name: reward for name, reward, error in trial.get("steps", []) if not error and reward in (0, 1)}
+        if trial["status"] in {"pass", "fail"} and steps.keys() >= {"draft", "repair"}:
+            repairs.append(steps)
+    if repairs:
+        missed = [s for s in repairs if s["draft"] == 0]
+        recovered = sum(s["repair"] == 1 for s in missed)
+        body += table(["Self-repair", "Attempts"], [
+            row(["Passed on first submission", f'{len(repairs) - len(missed)} / {len(repairs)}']),
+            row(["Recovered after a failed first submission", f'{recovered} / {len(missed)}' if missed else "No failed first submissions"])])
+    if k > 1:
+        r = repeatability(trials, k)
+        body += table(["Reliability", "Numerator / denominator"], [
+            row(["Passed / graded attempts", f'{r["passed"]} / {r["graded"]}']),
+            row([f"Tasks with {k} graded attempts", f'{r["complete"]} / {r["tasks"]}']),
+            row([f"Passed at least once (pass@{k})", f'{r["any"]} / {r["complete"]}']),
+            row([f"Passed every time (pass^{k})", f'{r["all"]} / {r["complete"]}']),
+            row(["Tasks with mixed results", f'{r["mixed"]} / {r["complete"]}'])])
+    return body
 
 
 class Report:
@@ -342,15 +383,20 @@ class Report:
             links.extend(link("../" + url, label) for label, url in trial.get("definition", []))
             traces = [link("../" + trial["trajectory"], "Trajectory JSON")] if trial.get("trajectory") else []
             traces.extend(link("../" + url, name) for name, url in trial.get("transcripts", []))
+            links.extend(link("../" + url, label) for label, url in trial.get("step_evidence", []))
             runtime = h(trial.get("cli_version") or "—")
             if trial.get("docker_image_id"):
                 runtime += note(trial["docker_image_id"])
             cells = [h(trial["case"]) + note("Attempt " + str(trial["attempt"])),
                      f'<span class="badge {h(state)}">{h(STATUS_LABELS.get(state, state))}</span>' + note(trial.get("reason") or ""),
                      h(trial["reward"] if trial["reward"] is not None else "—"),
-                     h(f'{trial["elapsed_seconds"]:.2f} s') if trial["elapsed_seconds"] is not None else "—",
+                     (h(f'{trial["elapsed_seconds"]:.2f} s') if trial["elapsed_seconds"] is not None else "—") +
+                     "".join(note(f'{label} · {value:g}' + (" s" if key in PHASES else "")) for key, label in (USAGE | PHASES).items()
+                             if (value := trial.get("measurements", {}).get(key)) is not None),
                      runtime, '<div class="links">' + "".join(traces) + '</div>' if traces else note("No agent trace recorded"),
                      '<div class="links">' + "".join(links) + '</div>']
+            for step, reward, error in trial.get("steps", []):
+                cells[2] += note(f"{step} · " + ("error" if error else str(reward) if reward is not None else "ungraded"))
             if include_run:
                 target = file_for("run", run_id) + "#" + trial_id
                 cells[0] = link(target, trial["case"]) + note("Attempt " + str(trial["attempt"]))
@@ -372,7 +418,10 @@ class Report:
             bundle = self.evidence.get(run_id, {})
             body = result_metrics(records)
             if bundle.get("plan"):
-                body += section("Frozen run plan", link("../" + bundle["plan"], "Open plan.json"))
+                files = [link("../" + bundle["plan"], "Open plan.json")]
+                if bundle.get("handbook"):
+                    files.append(link("../" + bundle["handbook"], "Open the operating guide"))
+                body += section("Frozen run plan", " · ".join(files))
             if comparison := bundle.get("retest"):
                 comparison_rows = []
                 for label, phase in (("Previous run", comparison["previous"]), ("Retest", comparison["current"])):
@@ -382,14 +431,14 @@ class Report:
                 timeout_rows = []
                 for trial in comparison.get("tasks", []):
                     before, after = trial["previous"], trial["current"]
-                    if "timeout" in (before["status"], after["status"]):
+                    if before["status"] != after["status"] or "timeout" in (before["status"], after["status"]):
                         times = [f'{phase["agent_seconds"]:.1f} s' if phase.get("agent_seconds") is not None else "—"
                                  for phase in (before, after)]
                         timeout_rows.append(row([link("#" + trial_anchor(trial), trial["case"]),
                                                  h(STATUS_LABELS[before["status"]]), h(times[0]),
                                                  h(STATUS_LABELS[after["status"]]), h(times[1])]))
                 if timeout_rows:
-                    summary += '<h3>Tasks with a timeout in either execution</h3>' + table(
+                    summary += '<h3>Changed outcomes and timeouts</h3>' + table(
                         ["Task", "Previous outcome", "Previous agent time", "Retest outcome", "Retest agent time"], timeout_rows)
                 summary += link("../" + bundle["retest_url"], "Compare task outcomes and elapsed time")
                 body += section("Retest comparison", summary)
@@ -403,7 +452,10 @@ class Report:
                     ("Model", self.model_link(record["model"]) + note(model["id"] + " · " + model["version"])),
                     ("Configured provider", h(point["provider"] or "Upstream configuration")),
                     ("Provider endpoint", h(point["base_url"] or "Provider default")),
-                    ("Inference settings", h(settings(point))), ("Agent execution limit", h(agent_time_limit(record))),
+                    ("Requested inference settings", h(settings(point))), ("Concurrent trial limit", str(point.get("workers", 1))),
+                    ("Concurrent trials per endpoint", str(point.get("endpoint_workers", 1))),
+                    ("Concurrent rubric trials", str(point.get("judge_workers", 1))),
+                    ("Operating guide SHA-256", h(point.get("handbook_sha256") or "None")), ("Agent execution limit", h(agent_time_limit(record))),
                     ("Whole trial limit", f'{h(point["timeout_seconds"])} s'), ("Attempts per task", h(point["repetitions"])),
                     ("Passed / attempted", f'{c["pass"]} / {sum(c.values())}'), ("Mean reward", "—" if not c["pass"]+c["fail"] else
                      f'{m["reward_sum"] / (c["pass"]+c["fail"]):.3f}'),
@@ -413,6 +465,20 @@ class Report:
                 if "environment_sha256" in point:
                     data.append(("Image fingerprint", f'<code>{h(point["environment_sha256"])}</code>'))
                 detail = table(["Setting", "Recorded value"], [row([h(k), val]) for k, val in data])
+                detail += measurement_tables(record["trials"], point["repetitions"])
+                prior = point.get("previous_run")
+                if prior:
+                    old = self.evidence.get(prior, {})
+                    old_trials = [t for t in old.get("trials", []) if t["model"] == model["id"] and t["agent"] == agent["id"]]
+                    changes, counts = aligned_outcomes(old_trials, record["trials"], old.get("tasks", {}), bundle.get("tasks", {}))
+                    detail += '<h3>Task outcomes since ' + link(file_for("run", prior), prior) + '</h3>'
+                    detail += table(["Previous", "Current", "Attempts"], [
+                        row([h(x["before"]), h(x["after"]), str(x["count"])]) for x in counts])
+                    changed = [row([link("#" + trial_anchor({**x, "model": model["id"], "agent": agent["id"]}), x["case"]),
+                                    str(x["attempt"]), h(x["before"]), h(x["after"])])
+                               for x in changes if x["same_revision"] and x["before"] != x["after"] and x["after"]]
+                    if changed:
+                        detail += table(["Changed task", "Attempt", "Previous", "Current"], changed)
                 label = agent["family"] + " × " + record["model"][1]
                 body += section(label, detail, f' id="{anchor(m)}"')
                 body += self.trial_table([(record, trial) for trial in record["trials"]], "Trial results · " + label)

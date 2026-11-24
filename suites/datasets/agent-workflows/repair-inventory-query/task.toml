@@ -1,0 +1,26 @@
+schema_version = "1.4"
+artifacts = [{ source = "/app/query.sql", destination = "query.sql" }]
+multi_step_reward_strategy = "final"
+
+[task]
+name = "sonar-eval/repair-inventory-query"
+authors = [{ name = "Sonar" }]
+
+[agent]
+timeout_sec = 240.0
+
+[environment]
+docker_image = "sonar-eval/workflows:1"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+
+[verifier]
+timeout_sec = 30.0
+environment_mode = "shared"
+
+[[steps]]
+name = "draft"
+
+[[steps]]
+name = "repair"

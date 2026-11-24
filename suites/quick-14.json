@@ -1,0 +1,65 @@
+{
+  "id": "quick-14",
+  "version": "1",
+  "grader": "harbor",
+  "reward_key": "reward",
+  "pass_threshold": 1,
+  "cases": [
+    {
+      "id": "blank-correct-batches",
+      "path": "datasets/analytical-chemistry/blank-correct-batches"
+    },
+    {
+      "id": "temperature-anomalies",
+      "path": "datasets/climate-records/temperature-anomalies"
+    },
+    {
+      "id": "apply-settings",
+      "path": "datasets/config-tools/apply-settings"
+    },
+    {
+      "id": "notice-calendar",
+      "path": "datasets/contract-review/notice-calendar"
+    },
+    {
+      "id": "seat-waitlists",
+      "path": "datasets/education-assessment/seat-waitlists"
+    },
+    {
+      "id": "unwrap-meter-readings",
+      "path": "datasets/energy-metering/unwrap-meter-readings"
+    },
+    {
+      "id": "link-visit-identifiers",
+      "path": "datasets/health-records/link-visit-identifiers"
+    },
+    {
+      "id": "bucket-events",
+      "path": "datasets/time-series/bucket-events"
+    },
+    {
+      "id": "prioritize-habitat-plots",
+      "path": "datasets/conservation-decisions/prioritize-habitat-plots"
+    },
+    {
+      "id": "choose-force-calibration",
+      "path": "datasets/measurement-design-reviews/choose-force-calibration"
+    },
+    {
+      "id": "allocate-courier-capacity",
+      "path": "datasets/operations-tradeoffs/allocate-courier-capacity"
+    },
+    {
+      "id": "release-oral-histories",
+      "path": "datasets/archive-access-decisions/release-oral-histories"
+    },
+    {
+      "id": "challenge-composite-index",
+      "path": "datasets/model-assumption-critiques/challenge-composite-index"
+    },
+    {
+      "id": "set-reserve-policy",
+      "path": "datasets/budget-governance/set-reserve-policy"
+    }
+  ]
+}

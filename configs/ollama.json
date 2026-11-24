@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "track": "agent-cli",
-  "suite": "../suites/all-tasks.json",
+  "suite": "../suites/all-tasks-v4.json",
   "timeout_seconds": 1200,
   "agent_timeout_seconds": 600,
   "models": [

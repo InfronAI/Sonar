@@ -1,6 +1,6 @@
 {
   "id": "all-tasks",
-  "version": "4",
+  "version": "5",
   "grader": "harbor",
   "reward_key": "reward",
   "pass_threshold": 1,
@@ -404,6 +404,14 @@
     {
       "id": "calibrate-peer-reviews",
       "path": "datasets/research-design-reviews/calibrate-peer-reviews"
+    },
+    {
+      "id": "repair-inventory-query",
+      "path": "datasets/agent-workflows/repair-inventory-query"
+    },
+    {
+      "id": "reschedule-scanner",
+      "path": "datasets/agent-workflows/reschedule-scanner"
     }
   ]
 }

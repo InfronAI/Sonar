@@ -1,0 +1,409 @@
+{
+  "id": "all-tasks",
+  "version": "4",
+  "grader": "harbor",
+  "reward_key": "reward",
+  "pass_threshold": 1,
+  "cases": [
+    {
+      "id": "blank-correct-batches",
+      "path": "datasets/analytical-chemistry/blank-correct-batches"
+    },
+    {
+      "id": "match-spectral-peaks",
+      "path": "datasets/analytical-chemistry/match-spectral-peaks"
+    },
+    {
+      "id": "fold-variable-star",
+      "path": "datasets/astronomy-observations/fold-variable-star"
+    },
+    {
+      "id": "schedule-exposures",
+      "path": "datasets/astronomy-observations/schedule-exposures"
+    },
+    {
+      "id": "calibration-brackets",
+      "path": "datasets/chemical-measurements/calibration-brackets"
+    },
+    {
+      "id": "formula-inventory",
+      "path": "datasets/chemical-measurements/formula-inventory"
+    },
+    {
+      "id": "audit-node-currents",
+      "path": "datasets/circuit-analysis/audit-node-currents"
+    },
+    {
+      "id": "reduce-resistance",
+      "path": "datasets/circuit-analysis/reduce-resistance"
+    },
+    {
+      "id": "longest-wet-spell",
+      "path": "datasets/climate-records/longest-wet-spell"
+    },
+    {
+      "id": "temperature-anomalies",
+      "path": "datasets/climate-records/temperature-anomalies"
+    },
+    {
+      "id": "repair-cursor-page",
+      "path": "datasets/coding-bugfix/repair-cursor-page"
+    },
+    {
+      "id": "repair-expiring-cache",
+      "path": "datasets/coding-bugfix/repair-expiring-cache"
+    },
+    {
+      "id": "apply-settings",
+      "path": "datasets/config-tools/apply-settings"
+    },
+    {
+      "id": "resolve-profiles",
+      "path": "datasets/config-tools/resolve-profiles"
+    },
+    {
+      "id": "consolidate-clauses",
+      "path": "datasets/contract-review/consolidate-clauses"
+    },
+    {
+      "id": "notice-calendar",
+      "path": "datasets/contract-review/notice-calendar"
+    },
+    {
+      "id": "invoice-rounding",
+      "path": "datasets/decimal-finance/invoice-rounding"
+    },
+    {
+      "id": "split-cents",
+      "path": "datasets/decimal-finance/split-cents"
+    },
+    {
+      "id": "index-citations",
+      "path": "datasets/docket-administration/index-citations"
+    },
+    {
+      "id": "reconstruct-case-status",
+      "path": "datasets/docket-administration/reconstruct-case-status"
+    },
+    {
+      "id": "seat-waitlists",
+      "path": "datasets/education-assessment/seat-waitlists"
+    },
+    {
+      "id": "weighted-gradebook",
+      "path": "datasets/education-assessment/weighted-gradebook"
+    },
+    {
+      "id": "bill-demand-periods",
+      "path": "datasets/energy-metering/bill-demand-periods"
+    },
+    {
+      "id": "unwrap-meter-readings",
+      "path": "datasets/energy-metering/unwrap-meter-readings"
+    },
+    {
+      "id": "resolve-taxon-names",
+      "path": "datasets/field-biodiversity/resolve-taxon-names"
+    },
+    {
+      "id": "survey-occupancy",
+      "path": "datasets/field-biodiversity/survey-occupancy"
+    },
+    {
+      "id": "group-duplicates",
+      "path": "datasets/file-inventory/group-duplicates"
+    },
+    {
+      "id": "index-text-tree",
+      "path": "datasets/file-inventory/index-text-tree"
+    },
+    {
+      "id": "age-receivables",
+      "path": "datasets/financial-ledgers/age-receivables"
+    },
+    {
+      "id": "audit-journals",
+      "path": "datasets/financial-ledgers/audit-journals"
+    },
+    {
+      "id": "assign-map-zones",
+      "path": "datasets/geospatial-analysis/assign-map-zones"
+    },
+    {
+      "id": "measure-land-patches",
+      "path": "datasets/geospatial-analysis/measure-land-patches"
+    },
+    {
+      "id": "pair-field-transects",
+      "path": "datasets/habitat-monitoring/pair-field-transects"
+    },
+    {
+      "id": "standardize-survey-effort",
+      "path": "datasets/habitat-monitoring/standardize-survey-effort"
+    },
+    {
+      "id": "link-visit-identifiers",
+      "path": "datasets/health-records/link-visit-identifiers"
+    },
+    {
+      "id": "turnaround-percentiles",
+      "path": "datasets/health-records/turnaround-percentiles"
+    },
+    {
+      "id": "clinic-queue",
+      "path": "datasets/hospital-operations/clinic-queue"
+    },
+    {
+      "id": "ward-census",
+      "path": "datasets/hospital-operations/ward-census"
+    },
+    {
+      "id": "normalize-book-identifiers",
+      "path": "datasets/library-collections/normalize-book-identifiers"
+    },
+    {
+      "id": "resolve-finding-aids",
+      "path": "datasets/library-collections/resolve-finding-aids"
+    },
+    {
+      "id": "first-pass-yield",
+      "path": "datasets/manufacturing-quality/first-pass-yield"
+    },
+    {
+      "id": "flag-process-runs",
+      "path": "datasets/manufacturing-quality/flag-process-runs"
+    },
+    {
+      "id": "integrate-cart-motion",
+      "path": "datasets/motion-analysis/integrate-cart-motion"
+    },
+    {
+      "id": "work-from-force-trace",
+      "path": "datasets/motion-analysis/work-from-force-trace"
+    },
+    {
+      "id": "solve-linear-system",
+      "path": "datasets/numerical-analysis/solve-linear-system"
+    },
+    {
+      "id": "weighted-quantiles",
+      "path": "datasets/numerical-analysis/weighted-quantiles"
+    },
+    {
+      "id": "dependency-order",
+      "path": "datasets/scheduling/dependency-order"
+    },
+    {
+      "id": "peak-bookings",
+      "path": "datasets/scheduling/peak-bookings"
+    },
+    {
+      "id": "latest-readings",
+      "path": "datasets/sql-analytics/latest-readings"
+    },
+    {
+      "id": "unpaid-invoices",
+      "path": "datasets/sql-analytics/unpaid-invoices"
+    },
+    {
+      "id": "allocate-expiring-lots",
+      "path": "datasets/supply-chain/allocate-expiring-lots"
+    },
+    {
+      "id": "explode-components",
+      "path": "datasets/supply-chain/explode-components"
+    },
+    {
+      "id": "merge-customer-csv",
+      "path": "datasets/tabular-data/merge-customer-csv"
+    },
+    {
+      "id": "pivot-sales",
+      "path": "datasets/tabular-data/pivot-sales"
+    },
+    {
+      "id": "audit-placeholders",
+      "path": "datasets/text-processing/audit-placeholders"
+    },
+    {
+      "id": "section-index",
+      "path": "datasets/text-processing/section-index"
+    },
+    {
+      "id": "bucket-events",
+      "path": "datasets/time-series/bucket-events"
+    },
+    {
+      "id": "merge-uptime",
+      "path": "datasets/time-series/merge-uptime"
+    },
+    {
+      "id": "allocate-prepayment",
+      "path": "datasets/treasury-operations/allocate-prepayment"
+    },
+    {
+      "id": "settle-cashflows",
+      "path": "datasets/treasury-operations/settle-cashflows"
+    },
+    {
+      "id": "bridge-cash-gap",
+      "path": "datasets/liquidity-reviews/bridge-cash-gap"
+    },
+    {
+      "id": "explain-margin-bridge",
+      "path": "datasets/liquidity-reviews/explain-margin-bridge"
+    },
+    {
+      "id": "route-notice",
+      "path": "datasets/agreement-operations/route-notice"
+    },
+    {
+      "id": "triage-amendment",
+      "path": "datasets/agreement-operations/triage-amendment"
+    },
+    {
+      "id": "interpret-marsh-counts",
+      "path": "datasets/conservation-decisions/interpret-marsh-counts"
+    },
+    {
+      "id": "prioritize-habitat-plots",
+      "path": "datasets/conservation-decisions/prioritize-habitat-plots"
+    },
+    {
+      "id": "schedule-interpreters",
+      "path": "datasets/health-access-planning/schedule-interpreters"
+    },
+    {
+      "id": "audit-portal-rollout",
+      "path": "datasets/health-access-planning/audit-portal-rollout"
+    },
+    {
+      "id": "diagnose-period-drift",
+      "path": "datasets/measurement-design-reviews/diagnose-period-drift"
+    },
+    {
+      "id": "choose-force-calibration",
+      "path": "datasets/measurement-design-reviews/choose-force-calibration"
+    },
+    {
+      "id": "review-blank-shift",
+      "path": "datasets/analytical-quality-reviews/review-blank-shift"
+    },
+    {
+      "id": "reconcile-reference-lots",
+      "path": "datasets/analytical-quality-reviews/reconcile-reference-lots"
+    },
+    {
+      "id": "triage-duplicate-receipts",
+      "path": "datasets/software-rollout-reviews/triage-duplicate-receipts"
+    },
+    {
+      "id": "repair-calendar-order",
+      "path": "datasets/software-rollout-reviews/repair-calendar-order"
+    },
+    {
+      "id": "stage-column-migration",
+      "path": "datasets/engineering-handoffs/stage-column-migration"
+    },
+    {
+      "id": "resolve-offline-edits",
+      "path": "datasets/engineering-handoffs/resolve-offline-edits"
+    },
+    {
+      "id": "audit-channel-conversion",
+      "path": "datasets/analytics-decision-briefs/audit-channel-conversion"
+    },
+    {
+      "id": "repair-dashboard-denominator",
+      "path": "datasets/analytics-decision-briefs/repair-dashboard-denominator"
+    },
+    {
+      "id": "allocate-courier-capacity",
+      "path": "datasets/operations-tradeoffs/allocate-courier-capacity"
+    },
+    {
+      "id": "plan-packaging-trial",
+      "path": "datasets/operations-tradeoffs/plan-packaging-trial"
+    },
+    {
+      "id": "assess-rain-gauge-change",
+      "path": "datasets/earth-observation-briefs/assess-rain-gauge-change"
+    },
+    {
+      "id": "interpret-shoreline-images",
+      "path": "datasets/earth-observation-briefs/interpret-shoreline-images"
+    },
+    {
+      "id": "shift-laundry-demand",
+      "path": "datasets/energy-planning-briefs/shift-laundry-demand"
+    },
+    {
+      "id": "review-solar-offer",
+      "path": "datasets/energy-planning-briefs/review-solar-offer"
+    },
+    {
+      "id": "compare-reading-interventions",
+      "path": "datasets/education-policy-memos/compare-reading-interventions"
+    },
+    {
+      "id": "redesign-course-waitlist",
+      "path": "datasets/education-policy-memos/redesign-course-waitlist"
+    },
+    {
+      "id": "release-oral-histories",
+      "path": "datasets/archive-access-decisions/release-oral-histories"
+    },
+    {
+      "id": "prioritize-digitization",
+      "path": "datasets/archive-access-decisions/prioritize-digitization"
+    },
+    {
+      "id": "compare-queue-approximations",
+      "path": "datasets/model-assumption-critiques/compare-queue-approximations"
+    },
+    {
+      "id": "challenge-composite-index",
+      "path": "datasets/model-assumption-critiques/challenge-composite-index"
+    },
+    {
+      "id": "prioritize-grant-awards",
+      "path": "datasets/budget-governance/prioritize-grant-awards"
+    },
+    {
+      "id": "set-reserve-policy",
+      "path": "datasets/budget-governance/set-reserve-policy"
+    },
+    {
+      "id": "screen-appeal-deadline",
+      "path": "datasets/fictional-rule-reviews/screen-appeal-deadline"
+    },
+    {
+      "id": "apply-permit-conditions",
+      "path": "datasets/fictional-rule-reviews/apply-permit-conditions"
+    },
+    {
+      "id": "protect-appointment-continuity",
+      "path": "datasets/service-continuity-reviews/protect-appointment-continuity"
+    },
+    {
+      "id": "interpret-contact-center-metrics",
+      "path": "datasets/service-continuity-reviews/interpret-contact-center-metrics"
+    },
+    {
+      "id": "choose-weather-stations",
+      "path": "datasets/field-program-reviews/choose-weather-stations"
+    },
+    {
+      "id": "interpret-snow-survey",
+      "path": "datasets/field-program-reviews/interpret-snow-survey"
+    },
+    {
+      "id": "repair-survey-inference",
+      "path": "datasets/research-design-reviews/repair-survey-inference"
+    },
+    {
+      "id": "calibrate-peer-reviews",
+      "path": "datasets/research-design-reviews/calibrate-peer-reviews"
+    }
+  ]
+}

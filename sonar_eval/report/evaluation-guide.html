@@ -17,8 +17,8 @@
   <div class="links"><a href="example-matrix.json" download="my-eval.json">Download JSON template</a></div>
   <details><summary>View the JSON template</summary><pre class="command"><code>$matrix</code></pre></details>
   <ul>
-    <li><code>suite</code> is relative to the JSON file. Use <code>../suites/all-tasks.json</code> for the full collection.</li>
-    <li>Choose <code>../suites/all-tasks-v3.json</code> for the original 60 deterministic tasks or <code>../suites/rubric-tasks.json</code> for the 40 assessed by Infron’s <code>infron/op-5.5</code>. The 100-task collection includes both.</li>
+    <li><code>suite</code> is relative to the JSON file. Use <code>../suites/all-tasks.json</code> for all 102 tasks in v5. The default matrices use <code>../suites/all-tasks-v4.json</code>.</li>
+    <li>Choose <code>../suites/all-tasks-v3.json</code> for the original 60 deterministic tasks or <code>../suites/rubric-tasks.json</code> for the 40 assessed by Infron’s <code>infron/op-5.5</code>. The 100-task v4 baseline includes both. <code>../suites/quick-14.json</code> selects one task per domain.</li>
     <li><code>agents</code> and <code>models</code> form all combinations by default. To select specific pairs, add <code>"pairs": [["glm", "pi"]]</code> using the model ID first.</li>
     <li><code>repetitions</code> sets attempts per pair and task. <code>agent_timeout_seconds</code> limits agent execution and <code>timeout_seconds</code> covers the entire trial, including setup and verification.</li>
     <li><code>inference</code> sets controls such as <code>max_tokens</code> for supported agents. CLI overrides take precedence. The run saves the resolved values in <code>plan.json</code>.</li>

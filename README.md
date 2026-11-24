@@ -10,7 +10,7 @@ Use Sonar to compare several agents on one model, compare model releases through
 | --- | --- |
 | Agent | A real CLI such as Pi, Claude Code or Codex. Harbor launches the selected CLI in a fresh task environment for each attempt. |
 | Model | The exact model identifier served by a provider, such as local Ollama or remote Infron. A family label groups releases for reporting. |
-| Task and suite | A task has instructions, an environment and a verifier. The collection contains 100 tasks in 50 two-task suites across 14 domains. |
+| Task and suite | A task has instructions, an environment and a verifier. The default v4 collection contains 100 tasks in 50 suites across 14 domains. The full v5 collection adds two multi-step workflows. |
 | Trial and run | A trial is one agent–model pair attempting one task once. A run freezes a matrix and executes **selected pairs × tasks × repetitions** trials. |
 
 Sonar owns the experiment plan, history and report. Upstream Harbor runs each task and its verifier in Docker. [Task manifest](suites/all-tasks.json) · [Domain index](suites/domains.json) · [Upstream Harbor](https://github.com/harbor-framework/harbor)
@@ -121,7 +121,7 @@ In **Rankings**, choose **Combination** to see every measured pair in a benchmar
 
 Rankings group runs by track, benchmark fingerprint, repetitions, time limit, recorded inference settings and agent options. The fingerprint covers the tasks, scoring and Docker environment. Release and endpoint labels distinguish entries within a group. When multiple tracking IDs select the same exact combination in one run, their pass and attempt counts are added together.
 
-**All tasks v3** selects the original 60 tasks. Their verifiers run fixed test cases. Passing every check earns 1 and a failed check earns 0. **All tasks v4** includes these same revisions plus 40 rubric-judged tasks. Select `--suite suites/rubric-tasks.json` to run the 40 on their own. [Original 60](suites/all-tasks-v3.json) · [Rubric tasks](suites/rubric-tasks.json) · [All 100](suites/all-tasks.json)
+**All tasks v3** selects the original 60 tasks. Their verifiers run fixed test cases. Passing every check earns 1 and a failed check earns 0. **All tasks v4** includes these same revisions plus 40 rubric-judged tasks. Select `--suite suites/rubric-tasks.json` to run the 40 on their own. [Original 60](suites/all-tasks-v3.json) · [Rubric tasks](suites/rubric-tasks.json) · [All 100](suites/all-tasks-v4.json)
 
 On a rubric task, the agent writes an English Markdown document to `/app/submission.md`. Harbor transfers it into a separate verifier container. That verifier sends the assignment, case packet, four criteria and submission to Infron’s `infron/op-5.5`. Each criterion earns a level of 0, 1 or 2. Its contribution is its percentage weight times the level divided by 2. The four weights are 30%, 30%, 25% and 15%. A reward of **0.75 or higher** passes. An absent or invalid submission earns zero locally. A judge or provider failure leaves the attempt ungraded. Each graded assessment saves the reported model ID, response ID, usage when available, scores, reasons and evidence hashes in `verifier/judge.json`. Judge scores can vary between calls. [Example rubric](suites/datasets/archive-access-decisions/prioritize-digitization/tests/rubric.json) · [Judge implementation](docker/rubric-judge/judge.py)
 
@@ -129,10 +129,47 @@ Pass rate counts every attempt. Mean reward uses graded attempts. On a binary su
 
 Family history uses stable model and agent IDs across releases. When moving a `--cli` experiment into a reusable matrix, copy its track, component IDs and family labels from `plan.json` to continue the series. A change in percentage points compares against the previous run with matching task and scoring fingerprints, image identities, Docker platform, track, repetitions, timeouts, endpoint, inference settings, agent options and family membership. A run with changed conditions still has its own results and evidence.
 
+## Fast comparisons and workflow validation
+
+The default Ollama and Infron matrices use the 100-task v4 baseline. To run a smaller scored comparison, select the fixed [Quick 14 suite](suites/quick-14.json). It covers all 14 domains with eight deterministic tasks and six rubric tasks. The five-CLI Infron matrix schedules 70 attempts on this suite. Its fingerprint and rankings are specific to these 14 tasks.
+
+```sh
+./sonar doctor --config configs/infron.json --suite suites/quick-14.json
+./sonar run --config configs/infron.json --suite suites/quick-14.json
+```
+
+Use the [v5 manifest](suites/all-tasks.json) for all 102 tasks, or select just `suites/datasets/agent-workflows`. The SQL workflow measures first submission and repair after public feedback. The scanner workflow checks changes to an existing calendar across two steps. The workspace persists between steps. Step rewards and trace links appear on the run page. Each suite or scoring change is described in the [revision history](suites/CHANGELOG.md).
+
+To measure an operating guide's effect, run the same pair and suite twice, adding `--handbook examples/workflow-handbook.md` on the second run. Sonar freezes the guide text and digest and passes it to Harbor as extra instructions. A matrix can also name a `handbook` path relative to its JSON file. The ordinary historical delta requires matching conditions. Use the explicit comparison to inspect a deliberate change.
+
+```sh
+./sonar compare BASELINE_RUN CANDIDATE_RUN
+./sonar compare BASELINE_RUN CANDIDATE_RUN --baseline-pair glm pi --candidate-pair glm pi --json
+```
+
+The comparison aligns task ID, frozen task revision and attempt number. It lists changed conditions, status transitions, reward changes, unmatched tasks and coverage. A multi-pair run needs its model and agent tracking IDs. Run reports show median phase durations, observed token totals and agent-reported USD cost with field coverage. Missing usage remains unknown. Input tokens include cache tokens when Harbor reports them. The verifier's judge usage is separate. With `--repetitions 3`, reliability includes average success over graded attempts and the fraction of fully graded tasks that pass at least once or every time.
+
+Runs normally execute one trial at a time. `--workers 2` or a matrix's `workers` setting caps concurrent trials within that run, including trials that share a provider or rubric judge. Use `--endpoint-workers` and `--judge-workers` to reserve fewer slots for any one endpoint or for all rubric trials. Judged trials occupy their slot from setup through grading. All three limits are frozen and enter the comparison fingerprint. Every trial commits independently. Resuming the run uses the original limit. Independent Sonar processes have independent limits.
+
+### Unranked diagnostics
+
+```sh
+./sonar smoke --scripted
+./sonar smoke --scripted --cli pi --max-tokens 256
+./sonar smoke --cli pi --provider ollama --model qwen3-vl:2b-instruct
+./sonar calibrate --repetitions 2
+```
+
+Smoke runs two tasks per selected pair using the installed CLI and Harbor. One task supplies a code directly. The other exposes the same code through a file. Both grade the submitted file. These paired tasks adapt gBench's tool-response diagnostics to a real CLI. [gBench Golden Set](https://github.com/google-deepmind/gbench/blob/d3e4283162d6c34353fa933284135d2a7ef3b9fe/docs/golden-set.md)
+
+Scripted mode serves local responses for Chat Completions, Responses and Anthropic Messages. It checks the order of tool calls and saves observed request fields in `requests.json`. If you specify an output token limit, temperature or top-p, the diagnostic checks that setting through the read, write and completion requests. Auxiliary calls, such as session title generation, retain their own recorded fields. The default listener uses loopback and advertises `host.docker.internal`. On a native Linux Docker host, pass `--fixture-bind` with the local bridge address reachable from the trial containers. Live smoke uses the selected model and endpoint. Its CLI launch arguments record requested settings.
+
+Calibration sends three labeled public archive submissions through the production rubric judge per repetition. Their expected rewards are 1.00, 0.70 and 0.75. Every call keeps its assessment and the number of unexpected criterion levels and pass decisions in the summary. A discrepancy or judge error gives a nonzero exit. Both commands write to unique directories under `STATE/validation/`, outside formal run history.
+
 ## Maintaining the task collection
 
 The bundled work includes software repair, finance, law, biology, healthcare, physics and chemistry. The coding bugfix suite checks repaired Python interfaces. The legal suites apply supplied fictional rules, and healthcare tasks use synthetic operational records. Browse the full list by domain in the report or the domain index. [Task collection](suites/datasets) · [Domain index](suites/domains.json)
 
-A bundled Harbor task carries `instruction.md`, `task.toml`, an `environment/` build context and `tests/test.sh` with its verifier inputs. The Dockerfile supplies task tools and public starter data. Harbor supplies the tests at verification time. The bundled verifiers write `/logs/verifier/reward.txt`. `solution/` contains a known-correct submission for developing and checking the verifier. Custom manifests can set their own `reward_key` and `pass_threshold`. [Harbor task format](https://docs.harborframework.com/tasks/overview) · [Verifier conventions](https://docs.harborframework.com/tasks/verifier)
+A bundled Harbor task carries `instruction.md`, `task.toml`, an `environment/` build context and a verifier. A multi-step task can put instructions, setup, tests and reference solutions under `steps/<name>/`. The Dockerfile supplies task tools and public starter data. Harbor supplies the tests at verification time. The bundled verifiers write `/logs/verifier/reward.txt`. `solution/` contains a known-correct submission for developing and checking the verifier. Custom manifests can set their own `reward_key` and `pass_threshold`. [Harbor task format](https://docs.harborframework.com/tasks/overview) · [Verifier conventions](https://docs.harborframework.com/tasks/verifier)
 
 Use `./sonar build-images --suite PATH` for an imported suite. Declare the main image in `task.toml` for multi-service Compose tasks and reference prebuilt auxiliary service images. Sonar can also freeze separate verifier images. Rebuild after changing a task environment or the agent package lock. Use `./sonar build-images --archive .sonar/images/sonar-linux-arm64.tar` on Linux arm64 Docker to export the bundled images. Run `python3 -m unittest discover -s tests -v` for regression checks. [Workspace instructions](AGENTS.md)

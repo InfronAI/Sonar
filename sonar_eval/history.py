@@ -3,6 +3,7 @@ from math import isfinite
 from urllib.parse import quote
 
 from .common import STATUSES, canonical, read_json
+from .measurements import harbor_measurements
 
 try:
     import tomllib
@@ -44,7 +45,7 @@ def points(state, *, member_metrics=False):
             graded = counts["pass"] + counts["fail"]
             point = {k: run[k] for k in ("run_id", "started_at", "finished_at", "track",
                                           "signature", "suite", "timeout_seconds", "repetitions")}
-            point.update({k: run[k] for k in ("benchmark_sha256", "environment_sha256", "agent_timeout_seconds") if k in run})
+            point.update({k: run[k] for k in ("benchmark_sha256", "environment_sha256", "agent_timeout_seconds", "workers", "endpoint_workers", "judge_workers", "handbook_sha256") if k in run})
             purpose = run.get("purpose", "evaluation")
             point.update({"model_family": mf, "agent_family": af, "provider": provider, "base_url": endpoint,
                           "purpose": purpose, "members": members, "inference": pairs[0].get("inference"),
@@ -153,6 +154,10 @@ def trial_logs(run_root, trial_root, row, link):
         logs["verifier_log"] = link(trial_root, folder / "verifier/test-stdout.txt")
         logs["submission"] = link(trial_root, folder / "artifacts/submission.md")
         logs["transcripts"] = [(p.name, url) for p in sorted(agent_dir.glob("*.txt")) if (url := link(trial_root, p))]
+        logs["step_evidence"] = [(p.relative_to(folder / "steps").as_posix(), url)
+                                 for pattern in ("*/agent/trajectory.json", "*/agent/*.txt", "*/verifier/test-stdout.txt",
+                                                 "*/artifacts/query.sql", "*/artifacts/calendar.db")
+                                 for p in sorted((folder / "steps").glob(pattern)) if (url := link(trial_root, p))]
     return logs
 
 
@@ -205,9 +210,20 @@ def report_evidence(state, history):
             source = row.get("harbor_result")
             if isinstance(source, str):
                 record["harbor"] = link(trial_root, directory / source)
+                if record["harbor"]:
+                    try:
+                        raw = read_json(directory / source)
+                        record["measurements"] = harbor_measurements(raw)
+                        record["steps"] = []
+                        for step in raw.get("step_results") or []:
+                            reward = ((step.get("verifier_result") or {}).get("rewards") or {}).get(plan["suite"]["reward_key"])
+                            record["steps"].append((step["step_name"], reward, bool(step.get("exception_info"))))
+                    except (OSError, ValueError, AttributeError, TypeError, KeyError):
+                        pass  # The committed outcome remains available when optional evidence is incomplete.
             record.update(trial_logs(run_root, trial_root, row, link))
             records.append(record)
         bundle = {"plan": plan_link, "trials": records, "tasks": tasks,
+                  "handbook": link(run_root, directory / "handbook.md") if plan.get("handbook_sha256") else None,
                   "agent_limits": frozen_agent_limits(plan, run_root)}
         comparison = directory / "retest.json"
         if url := link(run_root, comparison):

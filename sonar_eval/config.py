@@ -174,8 +174,14 @@ def matrix_definition(source, suite_path=None, overrides=None, *, environ=None, 
     require(isinstance(cfg, dict) and type(cfg.get("schema")) is int and cfg["schema"] == 1,
             "Expected matrix schema 1")
     track = nonempty(cfg, "track")
-    repeats = cfg.get("repetitions", 1)
     overrides = dict(overrides or {})
+    repeats = overrides.pop("repetitions", cfg.get("repetitions", 1))
+    workers = overrides.pop("workers", cfg.get("workers", 1))
+    endpoint_workers = overrides.pop("endpoint_workers", cfg.get("endpoint_workers", workers))
+    judge_workers = overrides.pop("judge_workers", cfg.get("judge_workers", workers))
+    handbook = overrides.pop("handbook", cfg.get("handbook"))
+    require(positive_int(workers), "workers must be a positive integer")
+    require(positive_int(endpoint_workers) and positive_int(judge_workers), "resource worker limits must be positive integers")
     timeout = overrides.pop("timeout_seconds", cfg.get("timeout_seconds", 60))
     agent_timeout = overrides.pop("agent_timeout_seconds", cfg.get("agent_timeout_seconds"))
     require(positive_int(repeats), "repetitions must be a positive integer")
@@ -195,7 +201,14 @@ def matrix_definition(source, suite_path=None, overrides=None, *, environ=None, 
     suite, origins = load_suite((suite_path or base / nonempty(cfg, "suite")).resolve(), hash_task)
     plan = {"schema": 1, "track": track, "purpose": "evaluation", "suite": suite, "models": models,
             "agents": agents, "pairs": pairs, "inference": inference, "repetitions": repeats,
-            "timeout_seconds": float(timeout)}
+            "timeout_seconds": float(timeout), "workers": workers, "endpoint_workers": min(endpoint_workers, workers),
+            "judge_workers": min(judge_workers, workers)}
+    if handbook is not None:
+        require(isinstance(handbook, (str, Path)) and bool(str(handbook).strip()), "Expected a handbook path")
+        text = (base / handbook).read_text(encoding="utf-8")
+        require(text.strip(), "The handbook must contain instructions")
+        plan["handbook"] = text
+        plan["handbook_sha256"] = hashlib.sha256(text.encode("utf-8")).hexdigest()
     if agent_timeout is not None:
         plan["agent_timeout_seconds"] = float(agent_timeout)
     return plan, origins
@@ -211,7 +224,8 @@ def load_plan(source, suite_path=None, overrides=None):
                 harbor_version=harbor_version(), execution_sha256=execution_hash(), python=sys.version.split()[0])
     plan["runner_sha256"] = fingerprint({p.name: file_hash(p) for p in sorted((ROOT / "sonar_eval").glob("*.py"))})
     comparison_fields = ("protocol", "suite", "grader_sha256", "timeout_seconds", "agent_timeout_seconds",
-                         "repetitions", "harbor_version")
+                         "repetitions", "harbor_version", "execution_sha256", "workers", "endpoint_workers",
+                         "judge_workers", "handbook_sha256")
     plan["benchmark_sha256"] = fingerprint({k: plan[k] for k in comparison_fields if k in plan})
     return plan, origins
 

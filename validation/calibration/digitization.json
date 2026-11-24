@@ -1,0 +1,20 @@
+{
+  "task": "suites/datasets/archive-access-decisions/prioritize-digitization",
+  "samples": [
+    {
+      "id": "within-capacity",
+      "levels": {"feasibility": 2, "tradeoff": 2, "alternative": 2, "review": 2},
+      "submission": "Digitize two fragile maps (4 staff-days, both supports), four ledgers (4 days) and all four pamphlets (4 days): 12 days. This protects vulnerable originals and serves frequent ledger users, while low requests for uncataloged pamphlets may reflect poor discoverability. Eight ledgers and two maps would fit but would displace all four pamphlets. Publish searchable descriptions and reassess next month using pamphlet requests and map condition checks."
+    },
+    {
+      "id": "over-capacity",
+      "levels": {"feasibility": 0, "tradeoff": 2, "alternative": 2, "review": 2},
+      "submission": "Digitize four fragile maps (8 staff-days, four supports), four ledgers (4 days) and all four pamphlets (4 days): commit to all 16 days this month. This protects vulnerable originals and serves frequent ledger users, while low requests for uncataloged pamphlets may reflect poor discoverability. Eight ledgers and two maps would fit but would displace all four pamphlets. Publish searchable descriptions and reassess next month using pamphlet requests and map condition checks."
+    },
+    {
+      "id": "at-threshold",
+      "levels": {"feasibility": 2, "tradeoff": 2, "alternative": 0, "review": 2},
+      "submission": "Digitize two fragile maps (4 staff-days, both supports), four ledgers (4 days) and all four pamphlets (4 days): 12 days. This protects vulnerable originals and serves frequent ledger users, while low requests for uncataloged pamphlets may reflect poor discoverability. Publish searchable descriptions and reassess next month using pamphlet requests and map condition checks."
+    }
+  ]
+}
